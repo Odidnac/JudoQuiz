@@ -36,6 +36,24 @@ window.onload = async function ()
     loadNextQuestion();
 }
 
+function loadNextQuestion()
+{
+    currentQuestion =
+        getRandomQuestion();
+
+    if(!currentQuestion)
+    {
+        return;
+    }
+
+    console.log(
+        "Pergunta atual:",
+        currentQuestion
+    );
+
+    renderQuestion();
+}
+
 async function validateAccess()
 {
     const playerName =
@@ -140,7 +158,7 @@ function answerCorrect()
         );
     }
 
-    nextQuestion();
+    loadNextQuestion();
 }
 
 function restartGame()
@@ -151,7 +169,7 @@ function restartGame()
 
     shidos = 0;
 
-    nextQuestion();
+    loadNextQuestion();
 }
 
 function renderQuestion()
