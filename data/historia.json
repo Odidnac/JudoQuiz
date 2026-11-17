@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "category":"Historia",
     "type": "multiple_choice",
     "question": "Quem fundou o Judo?",
     "options": [
@@ -13,6 +14,7 @@
   },
   {
     "id": 2,
+    "category":"Historia",
     "type": "text",
     "question": "Quem fundou o Judo?",
     "acceptedAnswers": [
