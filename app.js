@@ -6,7 +6,12 @@ let score = 0;
 
 let shidos = 0;
 
-let usedQuestions = [];
+let answeredCorrectly = [];
+
+let currentTimer = null;
+
+let timeRemaining = 30;
+
 
 async function login()
 {
@@ -65,4 +70,61 @@ async function login()
 
     window.location =
         "quiz.html";
+}
+
+function getAvailableQuestions()
+{
+    return questions.filter(
+        q =>
+            !answeredCorrectly.includes(q.id)
+    );
+}
+
+function getRandomQuestion()
+{
+    const availableQuestions =
+        getAvailableQuestions();
+
+    if (availableQuestions.length === 0)
+    {
+        victory();
+        return null;
+    }
+
+    const randomIndex =
+        Math.floor(
+            Math.random()
+            * availableQuestions.length
+        );
+
+    return availableQuestions[randomIndex];
+}
+
+function answerCorrect()
+{
+    score++;
+
+    if(
+        !answeredCorrectly.includes(
+            currentQuestion.id
+        )
+    )
+    {
+        answeredCorrectly.push(
+            currentQuestion.id
+        );
+    }
+
+    nextQuestion();
+}
+
+function restartGame()
+{
+    answeredCorrectly = [];
+
+    score = 0;
+
+    shidos = 0;
+
+    nextQuestion();
 }
