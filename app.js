@@ -1,3 +1,13 @@
+let questions = [];
+
+let currentQuestion = null;
+
+let score = 0;
+
+let shidos = 0;
+
+let usedQuestions = [];
+
 async function login()
 {
     const nome =
