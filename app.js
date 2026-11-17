@@ -12,6 +12,15 @@ let currentTimer = null;
 
 let timeRemaining = 30;
 
+window.onload = async function ()
+{
+    if(document.getElementById("question"))
+    {
+        await loadQuestions();
+
+        loadNextQuestion();
+    }
+}
 
 async function login()
 {
