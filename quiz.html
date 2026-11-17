@@ -157,7 +157,38 @@
             </div>
         </div>
     </dialog>
+    <dialog id="confirmDialog" class="modal">
+    
+        <div class="modal-box">
+            <h3
+                id="confirmTitle"
+                class="font-bold text-lg">    
+                Confirmação    
+            </h3>
+    
+            <p
+                id="confirmText"
+                class="py-4">    
+                Reiniciar jogo? A pontuação será perdida.    
+            </p>
+    
+            <div class="modal-action">
+    
+                <button
+                    class="btn btn-primary"
+                    id="confirmYes">    
+                    Sim    
+                </button>
+    
+                <button
+                    class="btn"
+                    onclick="closeConfirmDialog()">    
+                    Não    
+                </button>    
+            </div>    
+        </div>    
+    </dialog>
 
-<script src="js/quiz.js"></script>
+    <script src="js/quiz.js"></script>
 </body>
 </html>
