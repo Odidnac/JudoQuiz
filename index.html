@@ -2,56 +2,67 @@
 <html lang="pt">
 
 <head>
-    <meta charset="UTF-8">
 
-    <title>🥋 Judo Quiz</title>
+<meta charset="UTF-8">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<title>🥋 Judo Quiz</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"
-          rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link
+href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"
+rel="stylesheet">
+
 </head>
 
-<body class="bg-base-200 min-h-screen">
+<body class="bg-base-200">
 
-    <div class="navbar bg-primary text-primary-content">
-        <a class="btn btn-ghost text-xl">
-            🥋 Judo Quiz
-        </a>
-    </div>
+<div class="hero min-h-screen">
 
-    <div class="flex justify-center mt-10">
+<div class="hero-content">
 
-        <div class="card bg-base-100 shadow-xl w-full max-w-3xl">
+<div class="card bg-base-100 shadow-xl w-96">
 
-            <div class="card-body">
+<div class="card-body">
 
-                <h2 class="card-title">
-                    Pergunta
-                </h2>
+<h1 class="text-3xl font-bold text-center">
 
-                <div id="question" class="text-xl mb-4"></div>
+🥋 Judo Quiz
 
-                <div id="answers" class="space-y-2"></div>
+</h1>
 
-                <div class="mt-6">
+<input
+id="txtNome"
+class="input input-bordered"
+placeholder="Nome">
 
-                    <progress
-                        id="progress"
-                        class="progress progress-primary w-full"
-                        value="0"
-                        max="100">
-                    </progress>
+<input
+id="txtCodigo"
+class="input input-bordered"
+placeholder="Código">
 
-                </div>
+<button
+class="btn btn-primary"
+onclick="login()">
 
-            </div>
+Entrar
 
-        </div>
+</button>
 
-    </div>
+<div
+id="erro"
+class="text-error">
+</div>
 
-    <script src="app.js"></script>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 
