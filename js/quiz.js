@@ -329,3 +329,39 @@ function answerMultipleChoice(index)
         answerWrong();
     }
 }
+
+function confirmRestart()
+{
+    const confirmed =
+        confirm(
+            "Pretende reiniciar o jogo?\n\nToda a pontuação, Shidos e progresso serão perdidos."
+        );
+
+    if(!confirmed)
+    {
+        return;
+    }
+
+    restartGame();
+}
+
+function restartGame()
+{
+    clearInterval(
+        currentTimer
+    );
+
+    score = 0;
+
+    shidos = 0;
+
+    answeredCorrectly = [];
+
+    currentQuestion = null;
+
+    updateScore();
+
+    updateShidos();
+
+    loadNextQuestion();
+}
