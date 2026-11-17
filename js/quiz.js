@@ -158,9 +158,7 @@ function answerCorrect()
 function restartGame()
 {
     answeredCorrectly = [];
-
     score = 0;
-
     shidos = 0;
 
     loadNextQuestion();
@@ -364,15 +362,13 @@ function showConfirmDialog(
         .getElementById(
             "confirmTitle"
         )
-        .innerHTML =
-        title;
+        .innerHTML = title;
 
     document
         .getElementById(
             "confirmText"
         )
-        .innerHTML =
-        text;
+        .innerHTML = text;
 
     document
         .getElementById(
@@ -389,8 +385,7 @@ function showConfirmDialog(
     document
         .getElementById(
             "confirmDialog"
-        )
-        .showModal();
+        ).showModal();
 }
 
 function confirmRestart()
