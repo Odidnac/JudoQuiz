@@ -17,43 +17,211 @@ rel="stylesheet">
 
 </head>
 
-<body class="bg-base-200">
+<body class="bg-base-200 min-h-screen">
 
-<div class="container mx-auto mt-10">
+    <!-- Navbar -->
 
-<div class="card bg-base-100 shadow-xl">
+    <div class="navbar bg-primary text-primary-content">
 
-    <div class="card-body">
+        <div class="flex-1">
 
-        <div class="flex justify-between">
-
-            <div
-                id="shidos"
-                class="flex gap-2">
-            </div>
-
-            <span id="score">
-                0
+            <span class="text-xl font-bold">
+                🥋 Judo Quiz
             </span>
 
         </div>
 
-        <h2
-            id="question"
-            class="text-2xl font-bold mt-3">
-        </h2>
+        <div class="flex-none">
 
-        <div
-            id="questionArea"
-            class="mt-5">
+            <button
+                class="btn btn-error btn-sm"
+                onclick="logout()">
+
+                Logout
+
+            </button>
+
         </div>
 
     </div>
 
-</div>
+    <!-- Conteúdo -->
 
-</div>
+    <div class="container mx-auto p-4">
 
+        <div class="card bg-base-100 shadow-xl max-w-4xl mx-auto">
+
+            <div class="card-body">
+
+                <!-- Cabeçalho -->
+
+                <div class="flex justify-between items-center">
+
+                    <div>
+
+                        <div class="text-sm opacity-70">
+                            Jogador
+                        </div>
+
+                        <div
+                            id="playerName"
+                            class="font-bold text-lg">
+
+                            -
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <div class="text-sm opacity-70">
+                            Pontuação
+                        </div>
+
+                        <div
+                            id="score"
+                            class="text-2xl font-bold">
+
+                            0
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Shidos -->
+
+                <div class="mt-4">
+
+                    <div class="text-sm opacity-70 mb-2">
+
+                        Shidos
+
+                    </div>
+
+                    <div
+                        id="shidos"
+                        class="flex gap-2">
+
+                        <div class="badge badge-outline badge-lg">
+                            -
+                        </div>
+
+                        <div class="badge badge-outline badge-lg">
+                            -
+                        </div>
+
+                        <div class="badge badge-outline badge-lg">
+                            -
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Pergunta -->
+
+                <div class="mt-8">
+
+                    <h2
+                        id="question"
+                        class="text-2xl font-bold">
+
+                        A pergunta aparecerá aqui
+
+                    </h2>
+
+                </div>
+
+                <!-- Área dinâmica -->
+
+                <div
+                    id="questionArea"
+                    class="mt-6">
+
+                    <!--
+                    Aqui serão desenhados:
+
+                    Múltipla escolha
+
+                    Resposta escrita
+
+                    Ordenação
+
+                    Imagens
+
+                    etc.
+                    -->
+
+                </div>
+
+                <!-- Progresso -->
+
+                <div class="mt-8">
+
+                    <progress
+                        id="progressBar"
+                        class="progress progress-primary w-full"
+                        value="0"
+                        max="100">
+                    </progress>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <dialog
+    id="hansokuModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <h3 class="font-bold text-3xl text-error">
+
+            🥋 HANSOKU-MAKE
+
+        </h3>
+
+        <p class="py-4">
+
+            Acumulaste 3 Shidos.
+
+        </p>
+
+        <div
+            id="finalStats">
+
+        </div>
+
+        <div class="modal-action">
+
+            <button
+                class="btn btn-primary"
+                onclick="restartGame()">
+
+                Recomeçar
+
+            </button>
+
+            <button
+                class="btn"
+                onclick="logout()">
+
+                Sair
+
+            </button>
+
+        </div>
+
+    </div>
+
+</dialog>
+    
 <script>
 
 document.getElementById("nome")
