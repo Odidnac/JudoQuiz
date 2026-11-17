@@ -128,3 +128,149 @@ function restartGame()
 
     nextQuestion();
 }
+
+function renderQuestion()
+{
+    document
+        .getElementById("question")
+        .innerHTML =
+        currentQuestion.question;
+
+    switch(currentQuestion.type)
+    {
+        case "multiple_choice":
+
+            renderMultipleChoice();
+
+            break;
+
+        case "text":
+
+            renderText();
+
+            break;
+
+        case "multiple_text":
+
+            renderMultipleText();
+
+            break;
+
+        case "ordered_text":
+
+            renderOrderedText();
+
+            break;
+    }
+}
+
+function renderMultipleChoice()
+{
+    let html = "";
+
+    currentQuestion.options.forEach(
+        (option,index) =>
+        {
+            html +=
+            `
+            <button
+                class="btn btn-outline w-full mb-2"
+                onclick="answerMultipleChoice(${index})">
+
+                ${option}
+
+            </button>
+            `;
+        });
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
+}
+
+function renderText()
+{
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        `
+        <input
+            id="txtAnswer"
+            class="input input-bordered w-full">
+
+        <button
+            class="btn btn-primary mt-3"
+            onclick="answerText()">
+
+            Responder
+
+        </button>
+        `;
+}
+
+function renderMultipleText()
+{
+    let html = "";
+
+    currentQuestion.fields.forEach(
+        (field,index)=>
+        {
+            html +=
+            `
+            <input
+                id="field_${index}"
+                class="input input-bordered w-full mb-2"
+                placeholder="${field}">
+            `;
+        });
+
+    html +=
+    `
+    <button
+        class="btn btn-primary"
+        onclick="answerMultipleText()">
+
+        Responder
+
+    </button>
+    `;
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
+}
+
+function renderOrderedText()
+{
+    let html = "";
+
+    currentQuestion.fields.forEach(
+        (field,index)=>
+        {
+            html +=
+            `
+            <input
+                id="field_${index}"
+                class="input input-bordered w-full mb-2"
+                placeholder="${field}">
+            `;
+        });
+
+    html +=
+    `
+    <button
+        class="btn btn-primary"
+        onclick="answerOrderedText()">
+
+        Responder
+
+    </button>
+    `;
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
+}
