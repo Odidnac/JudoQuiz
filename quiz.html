@@ -4,69 +4,45 @@
 <head>
 
 <meta charset="UTF-8">
-
-<title>Quiz</title>
-
+<title>Quiz de Judo</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link rel="icon" href="data:,">
-
-<link
-href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"
-rel="stylesheet">
-
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-base-200 min-h-screen">
-
     <!-- Navbar -->
-
     <div class="navbar bg-primary text-primary-content">
-
         <div class="flex-1">
-
             <span class="text-xl font-bold">
                 🥋 Judo Quiz
             </span>
-
         </div>
 
         <div class="flex-none gap-2">
-
             <button
                 class="btn btn-warning btn-sm"
                 onclick="confirmRestart()">
-        
                 Restart
-        
             </button>
         
             <button
                 class="btn btn-error btn-sm"
                 onclick="logout()">
-        
                 Logout
-        
             </button>
-        
         </div>
-
     </div>
 
     <!-- Conteúdo -->
 
     <div class="container mx-auto p-4">
-
         <div class="card bg-base-100 shadow-xl max-w-4xl mx-auto">
-
             <div class="card-body">
-
                 <!-- Cabeçalho -->
-
                 <div class="flex justify-between items-center">
-
                     <div>
-
                         <div class="text-sm opacity-70">
                             Jogador
                         </div>
@@ -74,56 +50,39 @@ rel="stylesheet">
                         <div
                             id="playerName"
                             class="font-bold text-lg">
-
                             -
                         </div>
 
                     </div>
-
                     <div>
-
                         <div class="text-sm opacity-70">
-                            Pontuação
+                            Yukos
                         </div>
-
                         <div
                             id="score"
                             class="text-2xl font-bold">
-
                             0
-
                         </div>
-
                     </div>
-
                 </div>
 
                 <!-- Shidos -->
 
                 <div class="mt-4">
-
                     <div class="text-sm opacity-70 mb-2">
-
                         Shidos
-
                     </div>
 
-                    <div
-                        id="shidos"
-                        class="flex gap-2">
-
+                    <div id="shidos" class="flex gap-2">
                         <div class="badge badge-outline badge-lg">
                             -
                         </div>
-
                         <div class="badge badge-outline badge-lg">
                             -
                         </div>
-
                         <div class="badge badge-outline badge-lg">
                             -
                         </div>
-
                     </div>
 
                 </div>
@@ -131,121 +90,74 @@ rel="stylesheet">
                 <!-- Pergunta -->
 
                 <div class="mt-8">
-
                     <h2
                         id="question"
                         class="text-2xl font-bold">
-
                         A pergunta aparecerá aqui
-
                     </h2>
-
                 </div>
-
                 <!-- Área dinâmica -->
-
                 <div
                     id="questionArea"
                     class="mt-6">
-
                     <!--
                     Aqui serão desenhados:
-
                     Múltipla escolha
-
                     Resposta escrita
-
                     Ordenação
-
                     Imagens
-
                     etc.
                     -->
-
                 </div>
 
                 <!-- Progresso -->
-
                 <div class="mt-8">
-
                     <progress
                         id="progressBar"
                         class="progress progress-primary w-full"
                         value="0"
                         max="100">
                     </progress>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-    <dialog
-    id="hansokuModal"
-    class="modal">
-
-    <div class="modal-box">
-
-    <h3 class="font-bold text-3xl text-error">
-
-        🥋 HANSOKU-MAKE
-
-    </h3>
-
-    <p class="py-4">
-
-        Acumulaste 3 Shidos.
-
-    </p>
-
-    <!-- IMAGEM AQUI -->
-
-    <div class="flex justify-center">
-
-        <img
-            src="images/Hansoku-Make.png"
-            alt="Hansoku Make"
-            class="rounded-xl shadow-lg max-h-96">
-
-    </div>
-
-    <!-- ESTATÍSTICAS -->
-
-    <div
-        id="finalStats"
-        class="mt-5">
-
-    </div>
-
-    <div class="modal-action">
-
-        <button
-            class="btn btn-primary"
-            onclick="restartGame()">
-
-            Recomeçar
-
-        </button>
-
-        <button
-            class="btn"
-            onclick="logout()">
-
-            Sair
-
-        </button>
-
-    </div>
-
-</div>
-
-</dialog>
+    
+    <dialog id="hansokuModal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-3xl text-error">
+                🥋 HANSOKU-MAKE
+            </h3>
+        
+            <p class="py-4">
+                Acumulaste 3 Shidos.
+            </p>
+        
+            <!-- IMAGEM AQUI -->
+            <div class="flex justify-center">
+                <img src="images/Hansoku-Make.png" alt="Hansoku Make" class="rounded-xl shadow-lg max-h-96">
+            </div>
+            <!-- ESTATÍSTICAS -->
+            <div
+                id="finalStats"
+                class="mt-5">
+            </div>
+            <div class="modal-action">
+                <button
+                    class="btn btn-primary"
+                    onclick="restartGame()">
+                    Recomeçar
+                </button>
+        
+                <button
+                    class="btn"
+                    onclick="logout()">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </dialog>
 
 <script src="js/quiz.js"></script>
-
 </body>
-
 </html>
