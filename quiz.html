@@ -224,23 +224,15 @@ rel="stylesheet">
     
 <script>
 
-document.getElementById("nome")
-.innerHTML =
-localStorage.getItem("playerName");
-
 const playerName =
     localStorage.getItem("playerName");
 
 const playerCode =
     localStorage.getItem("playerCode");
 
-if (
-    playerName === null
-    ||
-    playerCode === null
-)
+if (!playerName || !playerCode)
 {
-    window.location = "index.html";
+    window.location.href = "index.html";
 }
 else
 {
