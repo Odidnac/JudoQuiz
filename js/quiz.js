@@ -124,7 +124,7 @@ function getRandomQuestion()
 
     if (availableQuestions.length === 0)
     {
-        //victory();
+        victory();
         return null;
     }
 
@@ -329,17 +329,12 @@ function restartGame()
     );
 
     score = 0;
-
     shidos = 0;
-
     answeredCorrectly = [];
-
     currentQuestion = null;
 
     updateScore();
-
     updateShidos();
-
     loadNextQuestion();
 }
 
@@ -378,7 +373,6 @@ function showConfirmDialog(
         function()
         {
             closeConfirmDialog();
-
             yesCallback();
         };
 
@@ -441,5 +435,43 @@ function updateShidos()
     }
 
     shidosElement.innerHTML = html;
+}
+
+function answerWrong()
+{
+    score =
+        Math.max(
+            0,
+            score - 1
+        );
+
+    updateScore();
+
+    shidos++;
+
+    updateShidos();
+
+    if(shidos >= 3)
+    {
+        hansokuMake();
+
+        return;
+    }
+
+    loadNextQuestion();
+}
+
+function hansokuMake()
+{
+    alert(
+        "Hansoku-Make!"
+    );
+}
+
+function victory()
+{
+    alert(
+        "Yaktaze!"
+    );
 }
 
