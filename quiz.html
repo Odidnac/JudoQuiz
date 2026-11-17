@@ -49,6 +49,26 @@ document.getElementById("nome")
 .innerHTML =
 localStorage.getItem("playerName");
 
+const playerName =
+    localStorage.getItem("playerName");
+
+const playerCode =
+    localStorage.getItem("playerCode");
+
+if (
+    playerName === null
+    ||
+    playerCode === null
+)
+{
+    window.location = "index.html";
+}
+else
+{
+    document.getElementById("nome")
+        .innerHTML = playerName;
+}
+
 </script>
 
 </body>
