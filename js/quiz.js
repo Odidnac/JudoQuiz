@@ -1,15 +1,9 @@
 let questions = [];
-
 let currentQuestion = null;
-
 let score = 0;
-
 let shidos = 0;
-
 let answeredCorrectly = [];
-
 let currentTimer = null;
-
 let timeRemaining = 30;
 
 const questionFiles =
@@ -330,21 +324,6 @@ function answerMultipleChoice(index)
     }
 }
 
-function confirmRestart()
-{
-    const confirmed =
-        confirm(
-            "Pretende reiniciar o jogo?\n\nToda a pontuação, Shidos e progresso serão perdidos."
-        );
-
-    if(!confirmed)
-    {
-        return;
-    }
-
-    restartGame();
-}
-
 function restartGame()
 {
     clearInterval(
@@ -364,4 +343,61 @@ function restartGame()
     updateShidos();
 
     loadNextQuestion();
+}
+
+function closeConfirmDialog()
+{
+    document
+        .getElementById(
+            "confirmDialog"
+        )
+        .close();
+}
+
+function showConfirmDialog(
+    title,
+    text,
+    yesCallback
+)
+{
+    document
+        .getElementById(
+            "confirmTitle"
+        )
+        .innerHTML =
+        title;
+
+    document
+        .getElementById(
+            "confirmText"
+        )
+        .innerHTML =
+        text;
+
+    document
+        .getElementById(
+            "confirmYes"
+        )
+        .onclick =
+        function()
+        {
+            closeConfirmDialog();
+
+            yesCallback();
+        };
+
+    document
+        .getElementById(
+            "confirmDialog"
+        )
+        .showModal();
+}
+
+function confirmRestart()
+{
+    showConfirmDialog(
+        "Reiniciar Quiz",
+        "Todo o progresso atual será perdido. Pretende continuar?",
+        restartGame
+    );
 }
