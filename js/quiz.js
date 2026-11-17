@@ -12,13 +12,76 @@ let currentTimer = null;
 
 let timeRemaining = 30;
 
+const questionFiles =
+[
+    "data/atletas.json",
+    "data/filosofia.json",
+    "data/historia.json",
+    "data/katas.json",
+    "data/regras.json",
+    "data/tecnicas.json",
+];
+
 window.onload = async function ()
 {
-    if(document.getElementById("question"))
-    {
-        await loadQuestions();
+    const accessGranted = await validateAccess();
 
-        loadNextQuestion();
+    if(!accessGranted)
+    {
+        window.location.href = "index.html";
+    }
+    
+    await loadQuestions();
+
+    loadNextQuestion();
+}
+
+async function validateAccess()
+{
+    const playerName =
+        localStorage.getItem(
+            "playerName"
+        );
+
+    const playerCode =
+        localStorage.getItem(
+            "playerCode"
+        );
+
+    if (
+        !playerName ||
+        !playerCode
+    )
+    {
+        window.location =
+            "index.html";
+
+        return false;
+    }
+
+    document
+        .getElementById("playerName")
+        .innerHTML =
+        playerName;
+
+    return true;
+}
+
+async function loadQuestions()
+{
+    questions = [];
+
+    for(const file of questionFiles)
+    {
+        const response =
+            await fetch(file);
+
+        const fileQuestions =
+            await response.json();
+
+        questions.push(
+            ...fileQuestions
+        );
     }
 }
 
