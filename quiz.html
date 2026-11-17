@@ -235,26 +235,6 @@ rel="stylesheet">
 </div>
 
 </dialog>
-    
-<script>
-
-const playerName =
-    localStorage.getItem("playerName");
-
-const playerCode =
-    localStorage.getItem("playerCode");
-
-if (!playerName || !playerCode)
-{
-    window.location.href = "index.html";
-}
-else
-{
-    document.getElementById("playerName")
-        .innerHTML = playerName;
-}
-
-</script>
 
 <script src="js/quiz.js"></script>
 
