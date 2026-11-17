@@ -1,7 +1,3 @@
-// ====================
-// Estado do Jogo
-// ====================
-
 let questions = [];
 
 let currentQuestion = null;
@@ -16,70 +12,33 @@ let currentTimer = null;
 
 let timeRemaining = 30;
 
-// ====================
-// Inicialização
-// ====================
-
 window.onload = async function ()
 {
-    await validateAccess();
-
-    await loadQuestions();
-
-    loadNextQuestion();
-};
-
-// ====================
-// Segurança
-// ====================
-
-async function validateAccess()
-{
-    const playerName =
-        localStorage.getItem(
-            "playerName");
-
-    const playerCode =
-        localStorage.getItem(
-            "playerCode");
-
-    if(!playerName || !playerCode)
+    if(document.getElementById("question"))
     {
-        window.location =
-            "index.html";
+        await loadQuestions();
 
-        return;
+        loadNextQuestion();
     }
-
-    document
-        .getElementById(
-            "playerName")
-        .innerHTML =
-        playerName;
 }
 
-// ====================
-// Perguntas
-// ====================
-
-async function loadQuestions()
+function logout()
 {
-    const response =
-        await fetch(
-            "data/questions.json"
-        );
+    localStorage.removeItem(
+        "playerName");
 
-    questions =
-        await response.json();
+    localStorage.removeItem(
+        "playerCode");
+
+    window.location =
+        "index.html";
 }
 
 function getAvailableQuestions()
 {
     return questions.filter(
         q =>
-            !answeredCorrectly.includes(
-                q.id
-            )
+            !answeredCorrectly.includes(q.id)
     );
 }
 
@@ -88,38 +47,192 @@ function getRandomQuestion()
     const availableQuestions =
         getAvailableQuestions();
 
-    if(
-        availableQuestions.length === 0
-    )
+    if (availableQuestions.length === 0)
     {
         victory();
-
         return null;
     }
 
-    const index =
+    const randomIndex =
         Math.floor(
             Math.random()
-            *
-            availableQuestions.length
+            * availableQuestions.length
         );
 
-    return availableQuestions[
-        index
-    ];
+    return availableQuestions[randomIndex];
 }
 
-function loadNextQuestion()
+function answerCorrect()
 {
-    currentQuestion =
-        getRandomQuestion();
+    score++;
 
-    if(!currentQuestion)
+    if(
+        !answeredCorrectly.includes(
+            currentQuestion.id
+        )
+    )
     {
-        return;
+        answeredCorrectly.push(
+            currentQuestion.id
+        );
     }
 
-    renderQuestion();
+    nextQuestion();
+}
 
-    startTimer();
+function restartGame()
+{
+    answeredCorrectly = [];
+
+    score = 0;
+
+    shidos = 0;
+
+    nextQuestion();
+}
+
+function renderQuestion()
+{
+    document
+        .getElementById("question")
+        .innerHTML =
+        currentQuestion.question;
+
+    switch(currentQuestion.type)
+    {
+        case "multiple_choice":
+
+            renderMultipleChoice();
+
+            break;
+
+        case "text":
+
+            renderText();
+
+            break;
+
+        case "multiple_text":
+
+            renderMultipleText();
+
+            break;
+
+        case "ordered_text":
+
+            renderOrderedText();
+
+            break;
+    }
+}
+
+function renderMultipleChoice()
+{
+    let html = "";
+
+    currentQuestion.options.forEach(
+        (option,index) =>
+        {
+            html +=
+            `
+            <button
+                class="btn btn-outline w-full mb-2"
+                onclick="answerMultipleChoice(${index})">
+
+                ${option}
+
+            </button>
+            `;
+        });
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
+}
+
+function renderText()
+{
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        `
+        <input
+            id="txtAnswer"
+            class="input input-bordered w-full">
+
+        <button
+            class="btn btn-primary mt-3"
+            onclick="answerText()">
+
+            Responder
+
+        </button>
+        `;
+}
+
+function renderMultipleText()
+{
+    let html = "";
+
+    currentQuestion.fields.forEach(
+        (field,index)=>
+        {
+            html +=
+            `
+            <input
+                id="field_${index}"
+                class="input input-bordered w-full mb-2"
+                placeholder="${field}">
+            `;
+        });
+
+    html +=
+    `
+    <button
+        class="btn btn-primary"
+        onclick="answerMultipleText()">
+
+        Responder
+
+    </button>
+    `;
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
+}
+
+function renderOrderedText()
+{
+    let html = "";
+
+    currentQuestion.fields.forEach(
+        (field,index)=>
+        {
+            html +=
+            `
+            <input
+                id="field_${index}"
+                class="input input-bordered w-full mb-2"
+                placeholder="${field}">
+            `;
+        });
+
+    html +=
+    `
+    <button
+        class="btn btn-primary"
+        onclick="answerOrderedText()">
+
+        Responder
+
+    </button>
+    `;
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
 }
