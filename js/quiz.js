@@ -124,7 +124,7 @@ function getRandomQuestion()
 
     if (availableQuestions.length === 0)
     {
-        victory();
+        //victory();
         return null;
     }
 
@@ -396,3 +396,50 @@ function confirmRestart()
         restartGame
     );
 }
+
+function updateScore()
+{
+    const scoreElement =
+        document.getElementById("score");
+
+    if(scoreElement)
+    {
+        scoreElement.innerHTML = score;
+    }
+}
+
+function updateShidos()
+{
+    const shidosElement =
+        document.getElementById("shidos");
+
+    if(!shidosElement)
+    {
+        return;
+    }
+
+    let html = "";
+
+    for(let i = 0; i < 3; i++)
+    {
+        if(i < shidos)
+        {
+            html += `
+                <div class="badge badge-warning badge-lg">
+                    Shido
+                </div>
+            `;
+        }
+        else
+        {
+            html += `
+                <div class="badge badge-outline badge-lg">
+                    -
+                </div>
+            `;
+        }
+    }
+
+    shidosElement.innerHTML = html;
+}
+
