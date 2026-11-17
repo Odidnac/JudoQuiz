@@ -35,7 +35,7 @@ async function login()
     erro.innerHTML = "";
 
     const response =
-        await fetch("players.json");
+        await fetch("data/players.json");
 
     const data =
         await response.json();
