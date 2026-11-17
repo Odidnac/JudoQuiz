@@ -10,5 +10,14 @@
       "Teddy Riner"
     ],
     "correct": 1
+  },
+  {
+    "id": 2,
+    "type": "text",
+    "question": "Quem fundou o Judo?",
+    "acceptedAnswers": [
+      "jigoro kano",
+      "kano"
+    ]
   }
 ]
