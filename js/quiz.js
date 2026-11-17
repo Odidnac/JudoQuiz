@@ -317,3 +317,15 @@ function renderOrderedText()
         .innerHTML =
         html;
 }
+
+function answerMultipleChoice(index)
+{
+    if(index === currentQuestion.correct)
+    {
+        answerCorrect();
+    }
+    else
+    {
+        answerWrong();
+    }
+}
