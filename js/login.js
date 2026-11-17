@@ -56,15 +56,3 @@ async function login()
     window.location =
         "quiz.html";
 }
-
-function logout()
-{
-    localStorage.removeItem(
-        "playerName");
-
-    localStorage.removeItem(
-        "playerCode");
-
-    window.location =
-        "index.html";
-}
