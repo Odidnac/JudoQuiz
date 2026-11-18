@@ -8,7 +8,7 @@ const questionFiles =
     "data/tecnicas.json",
 ];
 
-//Funções de validação de user e inicio de jogo
+//Funções de validação de user
 window.onload = async function ()
 {
     const accessGranted = await validateAccess();
@@ -99,7 +99,9 @@ function logout()
 
     window.location = "index.html";
 }
+//END Funções de validação de user e inicio de jogo
 
+//Funções de inicio ou reinicio de Jogo
 function confirmRestart()
 {
     showConfirmDialog(
@@ -108,5 +110,97 @@ function confirmRestart()
         restartGame
     );
 }
-//END Funções de validação de user e inicio de jogo
+
+function startQuiz()
+{
+    document
+        .getElementById("gameContent")
+        .innerHTML =
+        `
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <div class="font-bold text-xl">
+                    ${localStorage.getItem("playerName")}
+                </div>
+
+                <div class="flex justify-between">
+                    <div id="gameTimer">
+                        ⏱️ Tempo Total Jogo: 00:00
+                    </div>
+
+                    <div id="questionTimer">
+                        🕒 Tempo Restante Pergunta: 00
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                        <div class="text-sm opacity-70">
+                            Ippons
+                        </div>
+                        <div
+                            id="ippons"
+                            class="text-2xl font-bold">
+                            0
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-sm opacity-70">
+                            Wazaris
+                        </div>
+                        <div
+                            id="wazaris"
+                            class="text-2xl font-bold">
+                            0
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="text-sm opacity-70">
+                            Yukos
+                        </div>
+                        <div
+                            id="yukos"
+                            class="text-2xl font-bold">
+                            0
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div>
+                    <div
+                        class="text-sm opacity-70 mb-2">
+                        Shidos
+                    </div>
+
+                    <div
+                        id="shidos"
+                        class="flex gap-2">
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h2
+                    id="question"
+                    class="text-2xl font-bold">
+                </h2>
+                
+                <div
+                    id="questionArea"
+                    class="mt-5">
+                </div>
+            </div>
+        </div>
+        `;
+
+    updateScoreBoard();
+    updateShidos();
+}
+//End Funções de inicio ou reinicio de Jogo
 
