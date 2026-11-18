@@ -90,11 +90,6 @@ async function validateAccess()
         return false;
     }
 
-    document
-        .getElementById("playerName")
-        .innerHTML =
-        playerName;
-
     return true;
 }
 
