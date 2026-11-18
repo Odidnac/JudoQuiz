@@ -154,7 +154,7 @@ function startQuiz()
                         </div>
                         <div
                             id="wazaris"
-                            class="badge badge-warning badge-lg">
+                            class="badge badge-neutral badge-lg">
                             0
                         </div>
                     </div>
@@ -197,8 +197,11 @@ function startQuiz()
         </div>
         `;
 
+    loadQuestions();
     updateScoreBoard();
     updateShidos();
+    startGameTimer();
+    loadNextQuestion();
 }
 //End Funções de inicio ou reinicio de Jogo
 
@@ -227,4 +230,194 @@ function updateShidos()
     shidosElement.innerHTML = html;
 }
 //End Funções de gestão de pontos e vidas de jogo
+
+let answeredCorrectly = [];
+//Funções de gestão de perguntas e respostas no ecrã
+async function loadQuestions()
+{
+    questions = [];
+
+    for(const file of questionFiles)
+    {
+        const response =
+            await fetch(file);
+
+        const fileQuestions =
+            await response.json();
+
+        questions.push(
+            ...fileQuestions
+        );
+    }
+
+    console.log(
+        "Total de perguntas:",
+        questions.length
+    );
+}
+
+function getRandomQuestion()
+{
+    const availableQuestions =
+        questions.filter(
+            q =>
+                !answeredCorrectly.includes(
+                    q.id
+                )
+        );
+
+    if( availableQuestions.length === 0 )
+    {
+        return null;
+    }
+
+    const randomIndex =
+        Math.floor(
+            Math.random()
+            * availableQuestions.length
+        );
+
+    return availableQuestions[
+        randomIndex
+    ];
+}
+
+function loadNextQuestion()
+{
+    currentQuestion = getRandomQuestion();
+
+    if(!currentQuestion)
+    {
+        return;
+    }
+
+    questionTimeRemaining = getQuestionTime();
+    
+    renderQuestion();
+    startQuestionTimer();
+}
+
+function renderQuestion()
+{
+    const questionElement =
+        document.getElementById(
+            "question"
+        );
+
+    const answerElement =
+        document.getElementById(
+            "questionArea"
+        );
+
+    questionElement.innerHTML =
+        currentQuestion.question;
+
+    answerElement.innerHTML = "";
+
+    switch(currentQuestion.type)
+    {
+        case "multiple_choice":
+            renderMultipleChoice();
+            break;
+
+        case "text":
+            renderText();
+            break;
+
+        case "multiple_text":
+        case "ordered_text":
+            renderMultiFieldQuestion();
+            break;
+    }
+}
+
+function renderMultiFieldQuestion()
+{
+    let html = "";
+
+    currentQuestion.fields.forEach(
+        (field,index) =>
+        {
+            html += `
+                <input
+                    id="field_${index}"
+                    class="input input-bordered w-full mb-2"
+                    placeholder="${field}">
+            `;
+        });
+
+    html += `
+        <button
+            class="btn btn-primary mt-3">
+
+            Responder
+
+        </button>
+    `;
+
+    document
+        .getElementById("questionArea")
+        .innerHTML =
+        html;
+}
+
+function answerMultiField()
+{
+    switch(currentQuestion.type)
+    {
+        case "multiple_text":
+            validateMultipleText();
+            break;
+
+        case "ordered_text":
+            validateOrderedText();
+            break;
+    }
+}
+
+function renderMultipleChoice()
+{
+    let html = "";
+
+    currentQuestion.options.forEach(
+        (option,index) =>
+        {
+            html += `
+                <button
+                    class="btn btn-outline w-full mb-2"
+                    onclick="answerMultipleChoice(${index})">
+                    ${option}
+                </button>
+            `;
+        });
+
+    document
+        .getElementById(
+            "questionArea"
+        )
+        .innerHTML =
+        html;
+}
+
+function renderText()
+{
+    document
+        .getElementById(
+            "questionArea"
+        )
+        .innerHTML =
+        `
+        <input
+            id="txtAnswer"
+            class="input input-bordered w-full"
+            autocomplete="off">
+
+        <button
+            class="btn btn-primary mt-3"
+            onclick="answerText()">
+            Responder
+        </button>
+        `;
+}
+//End
 
