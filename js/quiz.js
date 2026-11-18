@@ -428,6 +428,7 @@ function renderText()
 
 //Funções de Gestão de tempo
 let questionTimerInterval = null;
+let gameTimerInterval = null;
 
 function startGameTimer()
 {
