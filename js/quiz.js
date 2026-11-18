@@ -206,6 +206,10 @@ function startQuiz()
 //End Funções de inicio ou reinicio de Jogo
 
 //Funções de gestão de pontos e vidas de jogo
+function updateScoreBoard()
+{
+}
+
 function updateShidos()
 {
     const shidosElement =
