@@ -18,7 +18,6 @@ window.onload = async function ()
         window.location.href = "index.html";
     }
     
-    await loadQuestions();
     showWelcomeScreen();
 }
 
@@ -95,14 +94,10 @@ async function validateAccess()
 
 function logout()
 {
-    localStorage.removeItem(
-        "playerName");
+    localStorage.removeItem("playerName");
+    localStorage.removeItem("playerCode");
 
-    localStorage.removeItem(
-        "playerCode");
-
-    window.location =
-        "index.html";
+    window.location = "index.html";
 }
 
 function confirmRestart()
