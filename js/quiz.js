@@ -233,6 +233,31 @@ function updateShidos()
 
     shidosElement.innerHTML = html;
 }
+
+function answerWrong()
+{
+    clearInterval(
+        questionTimerInterval
+    );
+
+    shidos++;
+    updateShidos();
+    
+    if(shidos >= 3)
+    {
+        hansokuMake();
+        return;
+    }
+    
+    loadNextQuestion();
+}
+
+function hansokuMake()
+{
+    alert(
+        "Hansoku-Make!"
+    );
+}
 //End Funções de gestão de pontos e vidas de jogo
 
 let answeredCorrectly = [];
@@ -424,6 +449,7 @@ function renderText()
         </button>
         `;
 }
+
 //End Funções de gestão de perguntas e respostas no ecrã
 
 //Funções de Gestão de tempo
