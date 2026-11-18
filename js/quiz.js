@@ -109,5 +109,14 @@ function logout()
     window.location =
         "index.html";
 }
+
+function confirmRestart()
+{
+    showConfirmDialog(
+        "Reiniciar Quiz",
+        "Todo o progresso atual será perdido. Pretende continuar?",
+        restartGame
+    );
+}
 //END Funções de validação de user e inicio de jogo
 
