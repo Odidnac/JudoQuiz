@@ -52,7 +52,7 @@ function showWelcomeScreen()
                         60 segundos
                     </li>
                     <li>
-                        Respostas rápidas podem valer:
+                        Consoante o tempo demora a responder, respostas podem valer:
                         Yuko, Wazari ou Ippon
                     </li>
                     <li>
@@ -135,52 +135,50 @@ function startQuiz()
 
                 <div class="divider"></div>
 
-                <div class="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                        <div class="text-sm opacity-70">
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="text-center">
+                        <div class="text-xs opacity-70">
                             Ippons
                         </div>
+                
                         <div
                             id="ippons"
-                            class="text-2xl font-bold">
+                            class="badge badge-success badge-lg">
                             0
                         </div>
                     </div>
-
-                    <div>
-                        <div class="text-sm opacity-70">
+                
+                    <div class="text-center">
+                        <div class="text-xs opacity-70">
                             Wazaris
                         </div>
                         <div
                             id="wazaris"
-                            class="text-2xl font-bold">
+                            class="badge badge-warning badge-lg">
                             0
                         </div>
                     </div>
-
-                    <div>
-                        <div class="text-sm opacity-70">
+                
+                    <div class="text-center">
+                        <div class="text-xs opacity-70">
                             Yukos
                         </div>
                         <div
                             id="yukos"
-                            class="text-2xl font-bold">
+                            class="badge badge-info badge-lg">
                             0
                         </div>
                     </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div>
-                    <div
-                        class="text-sm opacity-70 mb-2">
-                        Shidos
-                    </div>
-
-                    <div
-                        id="shidos"
-                        class="flex gap-2">
+                
+                    <div class="text-center">
+                        <div class="text-xs opacity-70">
+                            Shidos
+                        </div>
+                
+                        <div
+                            id="shidos"
+                            class="flex gap-1 justify-center">
+                        </div>
                     </div>
                 </div>
 
