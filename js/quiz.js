@@ -202,3 +202,29 @@ function startQuiz()
 }
 //End Funções de inicio ou reinicio de Jogo
 
+//Funções de gestão de pontos e vidas de jogo
+function updateShidos()
+{
+    const shidosElement =
+        document.getElementById(
+            "shidos"
+        );
+
+    if(!shidosElement)
+    {
+        return;
+    }
+
+    let html = "";
+    for(let i = 0; i < 3; i++)
+    {
+        html +=
+            i < shidos
+                ? '<div class="badge badge-error">S</div>'
+                : '<div class="badge badge-outline">-</div>';
+    }
+
+    shidosElement.innerHTML = html;
+}
+//End Funções de gestão de pontos e vidas de jogo
+
