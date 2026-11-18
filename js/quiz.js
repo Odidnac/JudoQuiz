@@ -1,6 +1,8 @@
 let questions = [];
 let currentQuestion = null;
-let score = 0;
+let yukos = 0;
+let wazaris = 0;
+let ippons = 0;
 let shidos = 0;
 let answeredCorrectly = [];
 let currentTimer = null;
@@ -26,7 +28,69 @@ window.onload = async function ()
     }
     
     await loadQuestions();
+    showWelcomeScreen();
+}
 
+function showWelcomeScreen()
+{
+    document
+        .getElementById(
+            "gameContent"
+        )
+        .innerHTML =
+        `
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title">
+                    Bem-vindo
+                    ${localStorage.getItem("playerName")}
+                </h2>
+                <ul class="list-disc ml-6">
+                    <li>3 Shidos = Hansoku-Make</li>
+                    <li>
+                        Perguntas simples:
+                        20 segundos
+                    </li>
+                    <li>
+                        Perguntas múltiplas:
+                        60 segundos
+                    </li>
+                    <li>
+                        Consoante a rapidez da resposta podes obter:
+                        Yuko, Wazari ou Ippon
+                    </li>
+                </ul>
+                <button
+                    class="btn btn-primary mt-5"
+                    onclick="startQuiz()">
+                    Iniciar Jogo
+                </button>
+            </div>
+        </div>
+        `;
+}
+
+function startQuiz()
+{
+    document
+        .getElementById(
+            "gameContent"
+        )
+        .innerHTML =
+        `
+        <h2
+            id="question"
+            class="text-2xl font-bold">
+        </h2>
+        <div
+            id="questionArea"
+            class="mt-5">
+        </div>
+        `;
+
+    startGameTimer();
+    updateScoreBoard();
+    updateShidos();
     loadNextQuestion();
 }
 
