@@ -75,6 +75,44 @@
             </div>
         </div>
     </dialog>
+
+    <dialog
+    id="hansokuModal"
+    class="modal">
+
+        <div class="modal-box">
+            <h3 class="font-bold text-3xl text-error">
+                🥋 HANSOKU-MAKE
+            </h3>
+            
+            <!-- IMAGEM -->
+    
+            <div class="my-4 flex justify-center">
+                <img
+                    src="images/Hansoku-Make.png"
+                    alt="Hansoku-Make"
+                    class="rounded-lg shadow-lg max-h-80">
+            </div>
+            
+            <p class="py-4">
+                Acumulaste 3 Shidos.
+            </p>
+    
+            <div class="modal-action">
+                <button
+                    class="btn btn-primary"
+                    onclick="restartGame()">
+                    Novo Jogo
+                </button>
+    
+                <button
+                    class="btn"
+                    onclick="logout()">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </dialog>
     
     <script src="js/quiz.js?v=1"></script>
 </body>
