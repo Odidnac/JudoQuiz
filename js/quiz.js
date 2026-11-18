@@ -427,6 +427,8 @@ function renderText()
 //End Funções de gestão de perguntas e respostas no ecrã
 
 //Funções de Gestão de tempo
+let questionTimerInterval = null;
+
 function startGameTimer()
 {
     console.log("Game timer iniciado");
@@ -434,7 +436,63 @@ function startGameTimer()
 
 function startQuestionTimer()
 {
-    console.log("Question timer iniciado");
+    clearInterval(questionTimerInterval);
+    updateQuestionTimer();
+    
+    updateQuestionTimer();
+    
+    questionTimerInterval =
+        setInterval(
+            function()
+            {
+                questionTimeRemaining--;
+
+                updateQuestionTimer();
+
+                if(questionTimeRemaining <= 0)
+                {
+                    clearInterval(
+                        questionTimerInterval
+                    );
+
+                    answerWrong();
+                }
+            },
+            1000
+        );
+}
+
+function updateQuestionTimer()
+{
+    const questionTimer =
+        document.getElementById(
+            "questionTimer"
+        );
+
+    if(!questionTimer)
+    {
+        return;
+    }
+
+    questionTimer.innerHTML =
+        `🕒 Tempo Restante Pergunta: ${questionTimeRemaining}s`;
+}
+
+function getQuestionTime()
+{
+    switch(currentQuestion.type)
+    {
+        case "multiple_choice":
+        case "text":
+            return 20;
+
+        case "multiple_text":
+        case "ordered_text":
+            return 60;
+
+        default:
+            return 20;
+    }
 }
 //End Funções de Gestão de tempo
 
