@@ -431,7 +431,56 @@ let questionTimerInterval = null;
 
 function startGameTimer()
 {
-    console.log("Game timer iniciado");
+    clearInterval(
+        gameTimerInterval
+    );
+
+    gameStartTime =
+        new Date();
+
+    updateGameTimer();
+
+    gameTimerInterval =
+        setInterval(
+            updateGameTimer,
+            1000
+        );
+}
+
+function updateGameTimer()
+{
+    const timerElement =
+        document.getElementById(
+            "gameTimer"
+        );
+
+    if(!timerElement)
+    {
+        return;
+    }
+
+    const elapsedSeconds =
+        Math.floor(
+            (
+                new Date() -
+                gameStartTime
+            ) / 1000
+        );
+
+    const minutes =
+        String(
+            Math.floor(
+                elapsedSeconds / 60
+            )
+        ).padStart(2,"0");
+
+    const seconds =
+        String(
+            elapsedSeconds % 60
+        ).padStart(2,"0");
+
+    timerElement.innerHTML =
+        `⏱️ Tempo Total Jogo: ${minutes}:${seconds}`;
 }
 
 function startQuestionTimer()
