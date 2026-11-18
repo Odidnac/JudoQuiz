@@ -5,8 +5,10 @@ let wazaris = 0;
 let ippons = 0;
 let shidos = 0;
 let answeredCorrectly = [];
-let currentTimer = null;
-let timeRemaining = 30;
+let gameStartTime = null;
+let gameTimerInterval = null;
+let questionTimerInterval = null;
+let questionTimeRemaining = 0;
 
 const questionFiles =
 [
@@ -18,6 +20,7 @@ const questionFiles =
     "data/tecnicas.json",
 ];
 
+//Funções de validação de user e inicio de jogo
 window.onload = async function ()
 {
     const accessGranted = await validateAccess();
@@ -59,6 +62,11 @@ function showWelcomeScreen()
                         Consoante a rapidez da resposta podes obter:
                         Yuko, Wazari ou Ippon
                     </li>
+                    <li>
+                        Responder a todas as perguntas sem perder vidas só com Ippons: Ouro Olímpico
+                        Responder a todas as perguntas sem perder vidas: Parata Olímpica
+                        Responder a todas as perguntas com vidas perdidas: Bronze Olímpico
+                    </li>
                 </ul>
                 <button
                     class="btn btn-primary mt-5"
@@ -94,24 +102,6 @@ function startQuiz()
     loadNextQuestion();
 }
 
-function loadNextQuestion()
-{
-    currentQuestion =
-        getRandomQuestion();
-
-    if(!currentQuestion)
-    {
-        return;
-    }
-
-    console.log(
-        "Pergunta atual:",
-        currentQuestion
-    );
-
-    renderQuestion();
-}
-
 async function validateAccess()
 {
     const playerName =
@@ -143,6 +133,115 @@ async function validateAccess()
     return true;
 }
 
+function logout()
+{
+    localStorage.removeItem(
+        "playerName");
+
+    localStorage.removeItem(
+        "playerCode");
+
+    window.location =
+        "index.html";
+}
+
+function restartGame()
+{
+    currentQuestion = null;
+    yukos = 0;
+    wazaris = 0;
+    ippons = 0;
+    shidos = 0;
+    answeredCorrectly = [];
+    gameStartTime = null;
+    questionTimeRemaining = 0;
+
+    clearInterval(
+        gameTimerInterval
+    );
+    clearInterval(
+        questionTimerInterval
+    );
+    
+    updateScoreBoard();
+    updateShidos();
+    loadNextQuestion();
+    loadNextQuestion();
+}
+
+function closeConfirmDialog()
+{
+    document
+        .getElementById(
+            "confirmDialog"
+        ).close();
+}
+
+function showConfirmDialog(
+    title,
+    text,
+    yesCallback
+)
+{
+    document
+        .getElementById(
+            "confirmTitle"
+        )
+        .innerHTML = title;
+
+    document
+        .getElementById(
+            "confirmText"
+        )
+        .innerHTML = text;
+
+    document
+        .getElementById(
+            "confirmYes"
+        )
+        .onclick =
+        function()
+        {
+            closeConfirmDialog();
+            yesCallback();
+        };
+
+    document
+        .getElementById(
+            "confirmDialog"
+        ).showModal();
+}
+
+function confirmRestart()
+{
+    showConfirmDialog(
+        "Reiniciar Quiz",
+        "Todo o progresso atual será perdido. Pretende continuar?",
+        restartGame
+    );
+}
+//END Funções de validação de user e inicio de jogo
+
+//Funções de carregamento de perguntas
+function loadNextQuestion()
+{
+    currentQuestion =
+        getRandomQuestion();
+
+    if(!currentQuestion)
+    {
+        return;
+    }
+
+    console.log(
+        "Pergunta atual:",
+        currentQuestion
+    );
+
+    renderQuestion();
+    startQuestionTimer();
+}
+
 async function loadQuestions()
 {
     questions = [];
@@ -161,23 +260,10 @@ async function loadQuestions()
     }
 }
 
-function logout()
-{
-    localStorage.removeItem(
-        "playerName");
-
-    localStorage.removeItem(
-        "playerCode");
-
-    window.location =
-        "index.html";
-}
-
 function getAvailableQuestions()
 {
     return questions.filter(
-        q =>
-            !answeredCorrectly.includes(q.id)
+        q =>!answeredCorrectly.includes(q.id)
     );
 }
 
@@ -201,33 +287,6 @@ function getRandomQuestion()
     return availableQuestions[randomIndex];
 }
 
-function answerCorrect()
-{
-    score++;
-
-    if(
-        !answeredCorrectly.includes(
-            currentQuestion.id
-        )
-    )
-    {
-        answeredCorrectly.push(
-            currentQuestion.id
-        );
-    }
-
-    loadNextQuestion();
-}
-
-function restartGame()
-{
-    answeredCorrectly = [];
-    score = 0;
-    shidos = 0;
-
-    loadNextQuestion();
-}
-
 function renderQuestion()
 {
     document
@@ -238,27 +297,19 @@ function renderQuestion()
     switch(currentQuestion.type)
     {
         case "multiple_choice":
-
             renderMultipleChoice();
-
             break;
 
         case "text":
-
             renderText();
-
             break;
 
         case "multiple_text":
-
             renderMultipleText();
-
             break;
 
         case "ordered_text":
-
             renderOrderedText();
-
             break;
     }
 }
@@ -275,9 +326,7 @@ function renderMultipleChoice()
             <button
                 class="btn btn-outline w-full mb-2"
                 onclick="answerMultipleChoice(${index})">
-
                 ${option}
-
             </button>
             `;
         });
@@ -385,85 +434,23 @@ function answerMultipleChoice(index)
         answerWrong();
     }
 }
+//End Funções de carregamento de perguntas
 
-function restartGame()
+//Funções validação de respostas
+function answerCorrect()
 {
     clearInterval(
-        currentTimer
+        questionTimerInterval
     );
 
-    score = 0;
-    shidos = 0;
-    answeredCorrectly = [];
-    currentQuestion = null;
-
-    updateScore();
-    updateShidos();
-    loadNextQuestion();
-}
-
-function closeConfirmDialog()
-{
-    document
-        .getElementById(
-            "confirmDialog"
-        )
-        .close();
-}
-
-function showConfirmDialog(
-    title,
-    text,
-    yesCallback
-)
-{
-    document
-        .getElementById(
-            "confirmTitle"
-        )
-        .innerHTML = title;
-
-    document
-        .getElementById(
-            "confirmText"
-        )
-        .innerHTML = text;
-
-    document
-        .getElementById(
-            "confirmYes"
-        )
-        .onclick =
-        function()
-        {
-            closeConfirmDialog();
-            yesCallback();
-        };
-
-    document
-        .getElementById(
-            "confirmDialog"
-        ).showModal();
-}
-
-function confirmRestart()
-{
-    showConfirmDialog(
-        "Reiniciar Quiz",
-        "Todo o progresso atual será perdido. Pretende continuar?",
-        restartGame
-    );
-}
-
-function updateScore()
-{
-    const scoreElement =
-        document.getElementById("score");
-
-    if(scoreElement)
+    if( !answeredCorrectly.includes(currentQuestion.id) )
     {
-        scoreElement.innerHTML = score;
+        answeredCorrectly.push(
+            currentQuestion.id
+        );
     }
+
+    loadNextQuestion();
 }
 
 function updateShidos()
@@ -503,28 +490,24 @@ function updateShidos()
 
 function answerWrong()
 {
-    score =
-        Math.max(
-            0,
-            score - 1
-        );
+    clearInterval(
+        questionTimerInterval
+    );
 
-    updateScore();
-
+    updateScoreBoard();
     shidos++;
-
     updateShidos();
 
     if(shidos >= 3)
     {
         hansokuMake();
-
         return;
     }
-
+    
     loadNextQuestion();
 }
 
+//Funções de cálculo de Pontuação
 function hansokuMake()
 {
     alert(
@@ -539,3 +522,124 @@ function victory()
     );
 }
 
+function updateScoreBoard()
+{
+    document
+        .getElementById("yukos")
+        .innerHTML =
+        yukos;
+
+    document
+        .getElementById("wazaris")
+        .innerHTML =
+        wazaris;
+
+    document
+        .getElementById("ippons")
+        .innerHTML =
+        ippons;
+}
+//End Funções de cálculo de Pontuação
+
+//Funções de cáclulco de Timer
+function startGameTimer()
+{
+    gameStartTime =
+        new Date();
+
+    gameTimerInterval =
+        setInterval(
+            updateGameTimer,
+            1000
+        );
+}
+
+function updateGameTimer()
+{
+    const elapsedSeconds =
+        Math.floor(
+            (new Date() - gameStartTime)
+            / 1000
+        );
+
+    const minutes =
+        String(
+            Math.floor(
+                elapsedSeconds / 60
+            )
+        ).padStart(2,'0');
+
+    const seconds =
+        String(
+            elapsedSeconds % 60
+        ).padStart(2,'0');
+
+    document
+        .getElementById(
+            "gameTimer"
+        )
+        .innerHTML =
+        `⏱️ Jogo: ${minutes}:${seconds}`;
+}
+
+function getQuestionTime()
+{
+    switch(
+        currentQuestion.type
+    )
+    {
+        case "multiple_choice":
+
+        case "text":
+
+            return 20;
+
+        case "multiple_text":
+
+        case "ordered_text":
+
+            return 60;
+
+        default:
+
+            return 20;
+    }
+}
+
+function startQuestionTimer()
+{
+    clearInterval(questionTimerInterval);
+    questionTimeRemaining = getQuestionTime();
+    updateQuestionTimer();
+
+    questionTimerInterval =
+        setInterval(
+            function()
+            {
+                questionTimeRemaining--;
+                updateQuestionTimer();
+
+                if(questionTimeRemaining <= 0)
+                {
+                    clearInterval(
+                        questionTimerInterval
+                    );
+                    answerWrong();
+                }
+            },
+            1000
+        );
+}
+
+function updateQuestionTimer()
+{
+    document
+        .getElementById(
+            "questionTimer"
+        )
+        .innerHTML =
+        "🕒 Pergunta: "
+        +
+        questionTimeRemaining;
+}
+//END Funções de cáclulco de Timer
