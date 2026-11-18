@@ -210,6 +210,7 @@ function updateScoreBoard()
 {
 }
 
+let shidos = 0;
 function updateShidos()
 {
     const shidosElement =
