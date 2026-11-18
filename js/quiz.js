@@ -423,5 +423,17 @@ function renderText()
         </button>
         `;
 }
-//End
+//End Funções de gestão de perguntas e respostas no ecrã
+
+//Funções de Gestão de tempo
+function startGameTimer()
+{
+    console.log("Game timer iniciado");
+}
+
+function startQuestionTimer()
+{
+    console.log("Question timer iniciado");
+}
+//End Funções de Gestão de tempo
 
