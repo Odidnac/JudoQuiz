@@ -111,7 +111,7 @@ function confirmRestart()
     );
 }
 
-function startQuiz()
+async function startQuiz()
 {
     document
         .getElementById("gameContent")
@@ -197,7 +197,7 @@ function startQuiz()
         </div>
         `;
 
-    loadQuestions();
+    await loadQuestions();
     updateScoreBoard();
     updateShidos();
     startGameTimer();
@@ -236,6 +236,7 @@ function updateShidos()
 //End Funções de gestão de pontos e vidas de jogo
 
 let answeredCorrectly = [];
+let questions = [];
 //Funções de gestão de perguntas e respostas no ecrã
 async function loadQuestions()
 {
