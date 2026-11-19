@@ -249,8 +249,23 @@ function answerWrong()
         hansokuMake();
         return;
     }
+
+    const modal =
+        document.getElementById(
+            "shidoModal"
+        );
+
+    modal.showModal();
     
-    loadNextQuestion();
+    setTimeout(
+        function()
+        {
+            modal.close();
+
+            loadNextQuestion();
+        },
+        1500
+    );
 }
 
 function hansokuMake()
