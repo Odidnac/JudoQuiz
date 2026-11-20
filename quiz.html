@@ -133,6 +133,45 @@
         </div>
     
     </dialog>
+
+    <dialog
+    id="hansokuModal"
+    class="modal">
+        <div class="modal-box text-center">
+            <h3
+                class="font-bold text-3xl text-error">
+                🥋 HANSOKU-MAKE
+            </h3>
+            <div class="my-4">
+                <img
+                    src="images/Hansoku-Make.png"
+                    alt="Hansoku-Make"
+                    class="mx-auto rounded-lg shadow-lg max-w-xs">
+            </div>
+            <p
+                class="py-2 text-lg">
+                Acumulaste 3 Shidos. Foste eliminado deste torneio!
+            </p>
+            <div
+                id="hansokuStats"
+                class="my-4">
+            </div>
+            <div class="modal-action justify-center">
+                <button
+                    class="btn btn-primary"
+                    onclick="restartGame()">
+                    Novo Jogo
+                </button>
+    
+                <button
+                    class="btn btn-outline"
+                    onclick="logout()">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </dialog>
+    
     <script src="js/quiz.js?v=1"></script>
 </body>
 
