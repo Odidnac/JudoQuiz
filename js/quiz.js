@@ -8,6 +8,15 @@ const questionFiles =
     "data/tecnicas.json",
 ];
 
+let shidos = 0;
+let ippons = 0;
+let wazaris = 0;
+let yukos = 0;
+let answeredCorrectly = [];
+let questions = [];
+let questionTimerInterval = null;
+let gameTimerInterval = null;
+
 //Funções de validação de user
 window.onload = async function ()
 {
@@ -210,7 +219,6 @@ function updateScoreBoard()
 {
 }
 
-let shidos = 0;
 function updateShidos()
 {
     const shidosElement =
@@ -223,8 +231,8 @@ function updateShidos()
         return;
     }
 
-    let html = "";
-    for(let i = 0; i < 3; i++)
+    html = "";
+    for(i = 0; i < 3; i++)
     {
         html +=
             i < shidos
@@ -268,6 +276,25 @@ function answerWrong()
     );
 }
 
+function answerCorrect()
+{
+    clearInterval(
+        questionTimerInterval
+    );
+    awardScore();
+    if(
+        !answeredCorrectly.includes(
+            currentQuestion.id
+        )
+    )
+    {
+        answeredCorrectly.push(
+            currentQuestion.id
+        );
+    }
+    loadNextQuestion();
+}
+
 function hansokuMake()
 {
     clearInterval(
@@ -303,10 +330,84 @@ function hansokuMake()
         );
     modal.showModal();
 }
+
+function answerMultipleChoice(index)
+{
+    if(index === currentQuestion.correct)
+    {
+        answerCorrect();
+    }
+    else
+    {
+        answerWrong();
+    }
+}
+
+function awardScore()
+{
+    switch(currentQuestion.type)
+    {
+        case "multiple_choice":
+        case "text":
+            if(questionTimeRemaining >= 15)
+            {
+                ippons++;
+            }
+            else if(questionTimeRemaining >= 10)
+            {
+                wazaris++;
+            }
+            else
+            {
+                yukos++;
+            }
+            break;
+
+        case "multiple_text":
+        case "ordered_text":
+            if(questionTimeRemaining >= 45)
+            {
+                ippons++;
+            }
+            else if(questionTimeRemaining >= 30)
+            {
+                wazaris++;
+            }
+            else
+            {
+                yukos++;
+            }
+            break;
+    }
+    updateScoreBoard();
+}
+
+function updateScoreBoard()
+{
+    document
+        .getElementById(
+            "ippons"
+        )
+        .innerHTML =
+        ippons;
+
+    document
+        .getElementById(
+            "wazaris"
+        )
+        .innerHTML =
+        wazaris;
+
+    document
+        .getElementById(
+            "yukos"
+        )
+        .innerHTML =
+        yukos;
+}
+
 //End Funções de gestão de pontos e vidas de jogo
 
-let answeredCorrectly = [];
-let questions = [];
 //Funções de gestão de perguntas e respostas no ecrã
 async function loadQuestions()
 {
@@ -494,13 +595,9 @@ function renderText()
         </button>
         `;
 }
-
 //End Funções de gestão de perguntas e respostas no ecrã
 
 //Funções de Gestão de tempo
-let questionTimerInterval = null;
-let gameTimerInterval = null;
-
 function startGameTimer()
 {
     clearInterval(
