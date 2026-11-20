@@ -260,7 +260,7 @@ function answerWrong()
 
     showDecision(
         "⚠️ SHIDO",
-        "images/Hansoku-Make.png"
+        "images/Shido.png"
     );
 }
 
@@ -353,7 +353,7 @@ function awardScore()
 
                 showDecision(
                     "🥈 WAZARI",
-                    "images/wazari.png"
+                    "images/Wazari.png"
                 );
             }
             else
@@ -361,7 +361,7 @@ function awardScore()
                 yukos++;
                 showDecision(
                     "🥉 YUKO",
-                    "images/yuko.png"
+                    "images/Yuko.png"
                 );
             }
             break;
