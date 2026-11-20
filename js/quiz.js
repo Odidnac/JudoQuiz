@@ -258,21 +258,9 @@ function answerWrong()
         return;
     }
 
-    const modal =
-        document.getElementById(
-            "shidoModal"
-        );
-
-    modal.showModal();
-    
-    setTimeout(
-        function()
-        {
-            modal.close();
-
-            loadNextQuestion();
-        },
-        1500
+    showDecision(
+        "⚠️ SHIDO",
+        "images/Hansoku-Make.png"
     );
 }
 
@@ -352,14 +340,29 @@ function awardScore()
             if(questionTimeRemaining >= 15)
             {
                 ippons++;
+
+                showDecision(
+                    "🏆 IPPON",
+                    "images/ippon.png"
+                );
+                
             }
             else if(questionTimeRemaining >= 10)
             {
                 wazaris++;
+
+                showDecision(
+                    "🥈 WAZARI",
+                    "images/wazari.png"
+                );
             }
             else
             {
                 yukos++;
+                showDecision(
+                    "🥉 YUKO",
+                    "images/yuko.png"
+                );
             }
             break;
 
@@ -432,6 +435,43 @@ function answerText()
     {
         answerWrong();
     }
+}
+
+function showDecision(
+    title,
+    image
+)
+{
+    document
+        .getElementById(
+            "decisionTitle"
+        )
+        .innerHTML =
+        title;
+
+    document
+        .getElementById(
+            "decisionImage"
+        )
+        .src =
+        image;
+
+    const modal =
+        document.getElementById(
+            "decisionModal"
+        );
+
+    modal.showModal();
+
+    setTimeout(
+        function()
+        {
+            modal.close();
+
+            loadNextQuestion();
+        },
+        1500
+    );
 }
 //End Funções de gestão de pontos e vidas de jogo
 
