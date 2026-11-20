@@ -406,6 +406,33 @@ function updateScoreBoard()
         yukos;
 }
 
+function answerText()
+{
+    const answer =
+        document
+            .getElementById(
+                "txtAnswer"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+    const correct =
+        currentQuestion.acceptedAnswers
+            .some(
+                a =>
+                    a.toLowerCase() === answer
+            );
+
+    if(correct)
+    {
+        answerCorrect();
+    }
+    else
+    {
+        answerWrong();
+    }
+}
 //End Funções de gestão de pontos e vidas de jogo
 
 //Funções de gestão de perguntas e respostas no ecrã
