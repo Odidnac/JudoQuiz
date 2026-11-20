@@ -270,9 +270,38 @@ function answerWrong()
 
 function hansokuMake()
 {
-    alert(
-        "Hansoku-Make!"
+    clearInterval(
+        gameTimerInterval
     );
+
+    clearInterval(
+        questionTimerInterval
+    );
+
+    document
+        .getElementById(
+            "hansokuStats"
+        )
+        .innerHTML =
+        `
+        <div class="space-y-2">
+            <div>
+                🏆 Ippons: ${ippons}
+            </div>
+            <div>
+                🥈 Wazaris: ${wazaris}
+            </div>
+            <div>
+                🥉 Yukos: ${yukos}
+            </div>
+        </div>
+        `;
+    
+    const modal =
+        document.getElementById(
+            "hansokuModal"
+        );
+    modal.showModal();
 }
 //End Funções de gestão de pontos e vidas de jogo
 
