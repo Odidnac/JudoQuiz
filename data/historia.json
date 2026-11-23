@@ -2,8 +2,9 @@
   {
     "id": 1,
     "category":"Historia",
+    "level": "all"
     "type": "multiple_choice",
-    "question": "Quem fundou o Judo?",
+    "question": "Qual destas pessoas fundou o Judo?",
     "options": [
       "Kyuzo Mifune",
       "Jigoro Kano",
@@ -15,8 +16,9 @@
   {
     "id": 2,
     "category":"Historia",
+    "level": "all"
     "type": "text",
-    "question": "Quem fundou o Judo?",
+    "question": "Quem foi o fundador do Judo?",
     "acceptedAnswers": [
       "jigoro kano",
       "kano"
