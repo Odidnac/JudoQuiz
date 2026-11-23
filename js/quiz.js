@@ -503,7 +503,11 @@ function showDecision(
 
 function calculateFinalScore()
 {
-    let baseScore = (ippons * 100) + (wazaris * 10) + yukos;
+    const ipponPoints = ippons * 100;
+
+    const wazariPoints = wazaris * 10;
+
+    const yukoPoints = yukos;
 
     let bonus = 0;
 
@@ -520,10 +524,17 @@ function calculateFinalScore()
         bonus = 1000;
     }
 
+    const baseScore = ipponPoints + wazariPoints + yukoPoints;
+
     return {
-        baseScore,
-        bonus,
-        total: baseScore + bonus
+        ipponPoints: ipponPoints,
+        wazariPoints: wazariPoints,
+        yukoPoints: yukoPoints,
+        baseScore: baseScore,
+        bonus: bonus,
+        total:
+            baseScore +
+            bonus
     };
 }
 
