@@ -1,8 +1,10 @@
 const questionFiles =
 [
     "data/atletas.json",
+    "data/dojo.json",
     "data/filosofia.json",
     "data/historia.json",
+    "data/historiaPRT.json",
     "data/katas.json",
     "data/regras.json",
     "data/tecnicas.json",
@@ -193,11 +195,36 @@ async function startQuiz()
 
                 <div class="divider"></div>
 
+                <div class="flex justify-between items-center">
+
+                <div>
+                    <span class="font-bold">
+                        Categoria:
+                    </span>
+            
+                    <span id="questionCategory">
+                    </span>
+                </div>
+            
+                <div>
+                    <span class="font-bold">
+                        Nível:
+                    </span>
+            
+                    <span id="questionLevel">
+                    </span>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
                 <h2
                     id="question"
                     class="text-2xl font-bold">
                 </h2>
-                
+                <div
+                    id="questionImage"
+                    class="my-4 text-center">
+                </div>
                 <div
                     id="questionArea"
                     class="mt-5">
@@ -542,6 +569,38 @@ function loadNextQuestion()
 
 function renderQuestion()
 {
+    document
+        .getElementById(
+            "questionCategory"
+        )
+        .innerHTML = currentQuestion.category;
+
+    document
+        .getElementById(
+            "questionLevel"
+        )
+        .innerHTML = currentQuestion.level;
+
+    const imageContainer =
+        document.getElementById(
+            "questionImage"
+        );
+
+    if(currentQuestion.image)
+    {
+        imageContainer.innerHTML =
+        `
+        <img
+            src="${currentQuestion.image}"
+            alt="Imagem da pergunta"
+            class="mx-auto rounded-lg shadow-lg max-h-80">
+        `;
+    }
+    else
+    {
+        imageContainer.innerHTML = "";
+    }
+    
     const questionElement =
         document.getElementById(
             "question"
@@ -765,19 +824,18 @@ function updateQuestionTimer()
 
 function getQuestionTime()
 {
-    switch(currentQuestion.type)
+    if(
+        currentQuestion.type === "multiple_text"
+        ||
+        currentQuestion.type === "ordered_text"
+    )
     {
-        case "multiple_choice":
-        case "text":
-            return 20;
-
-        case "multiple_text":
-        case "ordered_text":
-            return 60;
-
-        default:
-            return 20;
+        return 20 + (
+            (currentQuestion.fields.length - 1) * 5
+        );
     }
+
+    return 20;
 }
 //End Funções de Gestão de tempo
 
