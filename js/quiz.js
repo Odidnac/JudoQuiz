@@ -712,6 +712,68 @@ function getVictoryDescription()
 
     return "Parabéns pela vitória. A sua prestação valeu-lhe a vitória no Grand Slam.";
 }
+
+function showHighScores()
+{
+    const ranking =
+        JSON.parse(
+            localStorage.getItem(
+                "ranking"
+            ) || "[]"
+        );
+
+    let html =
+        `
+        <table class="table table-zebra">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Pontos</th>
+                    <th>Título</th>
+
+                </tr>
+            </thead>
+            <tbody>
+        `;
+
+    ranking.forEach(
+        (entry,index) =>
+        {
+            html +=
+            `
+            <tr>
+                <td>
+                    ${index + 1}
+                </td>
+                <td>
+                    ${entry.player}
+                </td>
+                <td>
+                    ${entry.score}
+                </td>
+                <td>
+                    ${entry.title}
+                </td>
+            </tr>
+            `;
+        });
+
+    html +=
+        `    </tbody>
+        </table>
+        `;
+
+    document
+        .getElementById(
+            "highScoresTable"
+        )
+        .innerHTML =html;
+
+    document.getElementById(
+            "highScoresModal"
+        ).showModal();
+}
 //End Funções de gestão de pontos e vidas de jogo
 
 //Funções de gestão de perguntas e respostas no ecrã
