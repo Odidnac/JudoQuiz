@@ -753,7 +753,7 @@ function showHighScores()
                     ${entry.score}
                 </td>
                 <td>
-                    ${entry.title}
+                    ${entry.medal}
                 </td>
             </tr>
             `;
