@@ -500,6 +500,104 @@ function showDecision(
         1500
     );
 }
+
+function calculateFinalScore()
+{
+    let baseScore = (ippons * 100) + (wazaris * 10) + yukos;
+
+    let bonus = 0;
+
+    if(shidos === 0)
+    {
+        bonus = 2200;
+    }
+    else if(shidos === 1)
+    {
+        bonus = 2000;
+    }
+    else if(shidos === 2)
+    {
+        bonus = 1000;
+    }
+
+    return {
+        baseScore,
+        bonus,
+        total: baseScore + bonus
+    };
+}
+
+function getVictoryTitle()
+{
+    if(shidos === 0)
+    {
+        return "🥇 Ouro Olímpico";
+    }
+
+    if(shidos === 1)
+    {
+        return "🏆 Ouro Mundial";
+    }
+
+    return "🥋 Grand Slam";
+}
+
+function saveHighScore()
+{
+    const playerName =
+        document
+            .getElementById(
+                "rankingName"
+            )
+            .value
+            .trim();
+
+    if(playerName === "")
+    {
+        alert(
+            "Introduza um nome."
+        );
+
+        return;
+    }
+
+    const finalScore =
+        calculateFinalScore();
+
+    const ranking =
+        JSON.parse(
+            localStorage.getItem(
+                "ranking"
+            ) || "[]"
+        );
+
+    ranking.push({
+        player: playerName,
+        score: finalScore.total,
+        ippons,
+        wazaris,
+        yukos,
+        shidos,
+        medal:
+            getVictoryTitle()
+    });
+
+    ranking.sort(
+        (a,b) =>
+            b.score - a.score
+    );
+
+    ranking.splice(10);
+
+    localStorage.setItem(
+        "ranking",
+        JSON.stringify(
+            ranking
+        )
+    );
+
+    restartGame();
+}
 //End Funções de gestão de pontos e vidas de jogo
 
 //Funções de gestão de perguntas e respostas no ecrã
