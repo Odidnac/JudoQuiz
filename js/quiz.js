@@ -561,8 +561,7 @@ function saveHighScore()
         return;
     }
 
-    const finalScore =
-        calculateFinalScore();
+    const finalScore = calculateFinalScore();
 
     const ranking =
         JSON.parse(
@@ -578,8 +577,7 @@ function saveHighScore()
         wazaris,
         yukos,
         shidos,
-        medal:
-            getVictoryTitle()
+        medal: getVictoryTitle()
     });
 
     ranking.sort(
@@ -687,6 +685,21 @@ function victory()
         .getElementById(
             "victoryModal"
         ).showModal();
+}
+
+function getVictoryDescription()
+{
+    if(shidos === 0)
+    {
+        return "Parabéns pela vitória. A sua prestação valeu-lhe o Ouro Olímpico.";
+    }
+
+    if(shidos === 1)
+    {
+        return "Parabéns pela vitória. A sua prestação valeu-lhe o Ouro Mundial.";
+    }
+
+    return "Parabéns pela vitória. A sua prestação valeu-lhe a vitória no Grand Slam.";
 }
 //End Funções de gestão de pontos e vidas de jogo
 
