@@ -80,11 +80,71 @@
         <div id="currentFileLabel" class="mb-4 font-bold text-lg">
         </div>
 
+        <div class="flex gap-2 mb-4">
+
+            <input
+                id="filterText"
+                type="text"
+                class="input input-bordered"
+                placeholder="Filtrar pergunta..."
+                onkeyup="renderTable()">
+        
+            <select
+                id="filterType"
+                class="select select-bordered"
+                onchange="renderTable()">
+        
+                <option value="">
+                    Todos os Tipos
+                </option>
+        
+                <option value="multiple_choice">
+                    Escolha Múltipla
+                </option>
+        
+                <option value="text">
+                    Resposta Simples
+                </option>
+        
+                <option value="multiple_text">
+                    Resposta Múltipla
+                </option>
+        
+                <option value="ordered_text">
+                    Resposta Ordenada
+                </option>
+        
+            </select>
+        
+            <select
+                id="filterLevel"
+                class="select select-bordered"
+                onchange="renderTable()">
+        
+                <option value="">
+                    Todos os Níveis
+                </option>
+        
+                <option value="all">
+                    all
+                </option>
+        
+                <option value="1kyu">
+                    1kyu
+                </option>
+        
+                <option value="blackbelt">
+                    blackbelt
+                </option>
+        
+            </select>
+        
+        </div>
         <!-- Tabela -->
 
-        <div class="overflow-x-auto">
+        <div class="overflow-auto max-h-[70vh]">
             <table class="table table-zebra w-full">
-                <thead>
+                <thead class="sticky top-0 bg-base-300 z-10">
                     <tr>
                         <th>ID</th>
                         <th>Nível</th>
@@ -94,12 +154,11 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-
+        
                 <tbody id="questionsTable">
                 </tbody>
             </table>
         </div>
-    </div>
 
     <!-- MODAL -->
 
