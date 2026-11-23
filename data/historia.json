@@ -2,7 +2,7 @@
   {
     "id": 1,
     "category":"Historia",
-    "level": "all"
+    "level": "all",
     "type": "multiple_choice",
     "question": "Qual destas pessoas fundou o Judo?",
     "options": [
@@ -16,7 +16,7 @@
   {
     "id": 2,
     "category":"Historia",
-    "level": "all"
+    "level": "all",
     "type": "text",
     "question": "Quem foi o fundador do Judo?",
     "acceptedAnswers": [
