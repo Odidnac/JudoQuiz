@@ -598,6 +598,96 @@ function saveHighScore()
 
     restartGame();
 }
+
+function victory()
+{
+    clearInterval(
+        gameTimerInterval
+    );
+
+    clearInterval(
+        questionTimerInterval
+    );
+
+    const score = calculateFinalScore();
+
+    document
+        .getElementById(
+            "victoryTitle"
+        )
+        .innerHTML = getVictoryTitle();
+
+    document
+        .getElementById(
+            "victoryText"
+        )
+        .innerHTML = getVictoryDescription();
+
+    document
+        .getElementById(
+            "finalIppons"
+        )
+        .innerHTML = ippons;
+
+    document
+        .getElementById(
+            "finalWazaris"
+        )
+        .innerHTML = wazaris;
+
+    document
+        .getElementById(
+            "finalYukos"
+        )
+        .innerHTML = yukos;
+
+    document
+        .getElementById(
+            "finalIpponPoints"
+        )
+        .innerHTML = score.ipponPoints + " pontos";
+
+    document
+        .getElementById(
+            "finalWazariPoints"
+        )
+        .innerHTML = score.wazariPoints + " pontos";
+
+    document
+        .getElementById(
+            "finalYukoPoints"
+        )
+        .innerHTML = score.yukoPoints + " pontos";
+
+    document
+        .getElementById(
+            "finalBonusTitle"
+        )
+        .innerHTML = getVictoryTitle();
+
+    document
+        .getElementById(
+            "finalBonusPoints"
+        )
+        .innerHTML = score.bonus + " pontos extra";
+
+    document
+        .getElementById(
+            "finalTotalScore"
+        )
+        .innerHTML = score.total;
+
+    document
+        .getElementById(
+            "rankingName"
+        )
+        .value = localStorage.getItem("playerName") || "";
+
+    document
+        .getElementById(
+            "victoryModal"
+        ).showModal();
+}
 //End Funções de gestão de pontos e vidas de jogo
 
 //Funções de gestão de perguntas e respostas no ecrã
@@ -656,6 +746,8 @@ function loadNextQuestion()
 
     if(!currentQuestion)
     {
+        victory();
+
         return;
     }
 
