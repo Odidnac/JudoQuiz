@@ -23,6 +23,12 @@
 
         <div class="flex-none gap-2">
             <button
+                class="btn btn-sm"
+                onclick="showHighScores()">
+                Top 10
+            </button>
+            
+            <button
                 class="btn btn-warning btn-sm"
                 onclick="confirmRestart()">
                 Restart
@@ -286,7 +292,29 @@
     
         </div>
     </dialog>
+
+    <dialog
+    id="highScoresModal"
+    class="modal">
+        <div class="modal-box max-w-2xl">
+            <h2 class="text-3xl font-bold text-center">
+                🏆 Top 10
+            </h2>
     
+            <div class="divider"></div>
+    
+            <div id="highScoresTable"></div>
+    
+            <div class="modal-action">
+                <button
+                    class="btn"
+                    onclick="document.getElementById('highScoresModal').close()">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </dialog>
+
     <script src="js/quiz.js?v=1"></script>
 </body>
 
