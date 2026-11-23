@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administração de Perguntas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"
+        rel="stylesheet">
+</head>
+
+<body class="bg-base-200 p-4">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">
+            Gestão de Perguntas
+        </h1>
+
+        <!-- Seleção de ficheiro -->
+
+        <div class="flex gap-2 mb-4">
+            <select
+                id="jsonSelector"
+                class="select select-bordered">
+
+                <option value="data/atletas.json">
+                    Atletas
+                </option>
+
+                <option value="data/dojo.json">
+                    Filosofia
+                </option>
+
+                <option value="data/filosofia.json">
+                    Filosofia
+                </option>
+
+                <option value="data/historia.json">
+                    História
+                </option>
+
+                <option value="data/historiaPRT.json">
+                    História
+                </option>
+
+                <option value="data/katas.json">
+                    Katas
+                </option>
+
+                <option value="data/regras.json">
+                    Regras
+                </option>
+
+                <option value="data/tecnicas.json">
+                    Técnicas
+                </option>
+            </select>
+
+            <button
+                class="btn btn-primary"
+                onclick="loadJsonFile()">
+                Carregar
+            </button>
+
+            <button
+                class="btn btn-success"
+                onclick="addQuestion()">
+                Nova Pergunta
+            </button>
+
+            <button
+                class="btn btn-info"
+                onclick="exportJson()">
+                Exportar JSON
+            </button>
+        </div>
+
+        <div id="currentFileLabel" class="mb-4 font-bold text-lg">
+        </div>
+
+        <!-- Tabela -->
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra w-full">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nível</th>
+                        <th>Tipo</th>
+                        <th>Pergunta</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="questionsTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+
+    <dialog id="questionModal" class="modal">
+        <div class="modal-box max-w-5xl">
+            <h3 class="font-bold text-lg">
+                Pergunta
+            </h3>
+
+            <input id="editIndex" type="hidden">
+
+            <!-- Nível -->
+
+            <div class="mt-4">
+                <label class="font-bold">
+                    Nível
+                </label>
+
+                <select
+                    id="level"
+                    class="select select-bordered w-full">
+                    <option value="all">
+                        all
+                    </option>
+                    <option value="1kyu">
+                        1kyu
+                    </option>
+                    <option value="blackbelt">
+                        blackbelt
+                    </option>
+                </select>
+            </div>
+
+            <!-- Tipo -->
+
+            <div class="mt-4">
+
+                <label class="font-bold">
+                    Tipo
+                </label>
+
+                <select
+                    id="type"
+                    class="select select-bordered w-full"
+                    onchange="updateQuestionTypeFields()">
+                    <option value="multiple_choice">
+                        multiple_choice
+                    </option>
+                    <option value="text">
+                        text
+                    </option>
+                    <option value="multiple_text">
+                        multiple_text
+                    </option>
+                    <option value="ordered_text">
+                        ordered_text
+                    </option>
+                </select>
+            </div>
+
+            <!-- Pergunta -->
+
+            <div class="mt-4">
+                <label class="font-bold">
+                    Pergunta
+                </label>
+
+                <textarea
+                    id="question"
+                    class="textarea textarea-bordered w-full"
+                    rows="3">
+                </textarea>
+            </div>
+
+            <!-- Imagem -->
+
+            <div class="mt-4">
+                <label class="font-bold">
+                    Imagem
+                </label>
+
+                <input
+                    id="image"
+                    class="input input-bordered w-full"
+                    placeholder="images/jigorokano.png">
+            </div>
+
+            <!-- Dados específicos -->
+
+            <div class="mt-4">
+                <label class="font-bold">
+                    Conteúdo
+                </label>
+
+                <div
+                    id="questionTypeSpecificArea">
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <button
+                    class="btn btn-primary"
+                    onclick="saveQuestion()">
+                    Gravar
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="closeModal()">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>
