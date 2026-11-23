@@ -156,20 +156,143 @@
     id="decisionModal"
     class="modal">
 
-    <div class="modal-box text-center">
-        <h3
-            id="decisionTitle"
-            class="font-bold text-3xl">
-        </h3>
-
-        <div class="my-4">
-            <img
-                id="decisionImage"
-                src=""
-                class="mx-auto rounded-lg shadow-lg max-w-xs">
+        <div class="modal-box text-center">
+            <h3
+                id="decisionTitle"
+                class="font-bold text-3xl">
+            </h3>
+    
+            <div class="my-4">
+                <img
+                    id="decisionImage"
+                    src=""
+                    class="mx-auto rounded-lg shadow-lg max-w-xs">
+            </div>
         </div>
-    </div>
-</dialog>
+    </dialog>
+
+    <dialog
+    id="victoryModal"
+    class="modal">
+        <div class="modal-box max-w-2xl">
+            <div class="text-center">
+                <h2
+                    id="victoryTitle"
+                    class="text-4xl font-bold text-warning">
+                    🥇 OURO OLÍMPICO
+                </h2>
+                <div class="my-6">
+                    <img
+                        id="victoryImage"
+                        src="images/ouro-olimpico.png"
+                        alt="Ouro Olímpico"
+                        class="mx-auto rounded-lg shadow-lg max-h-64">
+                </div>
+                <p
+                    id="victoryText"
+                    class="text-lg">
+                    Parabéns pela vitória.
+    
+                    A sua prestação valeu-lhe o
+                    Ouro Olímpico.
+                </p>
+            </div>
+    
+            <div class="divider"></div>
+    
+            <h3 class="font-bold text-xl">
+                Pontuação Detalhada
+            </h3>
+    
+            <div class="space-y-2 mt-4">
+                <div class="flex justify-between">
+                    <span>
+                        <strong id="finalIppons">7</strong>
+                        Ippons
+                    </span>
+                    <span id="finalIpponPoints">
+                        700 pontos
+                    </span>
+                </div>
+    
+                <div class="flex justify-between">
+                    <span>
+                        <strong id="finalWazaris">9</strong>
+                        Wazaris
+                    </span>
+                    <span id="finalWazariPoints">
+                        90 pontos
+                    </span>
+                </div>
+    
+                <div class="flex justify-between">
+                    <span>
+                        <strong id="finalYukos">35</strong>
+                        Yukos
+                    </span>
+                    <span id="finalYukoPoints">
+                        35 pontos
+                    </span>
+                </div>
+    
+                <div class="flex justify-between font-bold text-success">
+                    <span id="finalBonusTitle">
+                        Ouro Olímpico
+                    </span>
+    
+                    <span id="finalBonusPoints">
+                        +2200 pontos
+                    </span>
+                </div>
+    
+            </div>
+    
+            <div class="divider"></div>
+    
+            <div class="flex justify-between text-2xl font-bold">
+                <span>
+                    TOTAL
+                </span>
+    
+                <span id="finalTotalScore">
+                    3025
+                </span>
+            </div>
+    
+            <div class="divider"></div>
+    
+            <div>
+                <label class="label">
+                    <span class="label-text">
+                        Nome para o Ranking
+                    </span>
+                </label>
+    
+                <input
+                    id="rankingName"
+                    type="text"
+                    class="input input-bordered w-full"
+                    maxlength="30">
+    
+            </div>
+    
+            <div class="modal-action justify-center mt-6">
+                <button
+                    class="btn btn-primary"
+                    onclick="saveHighScore()">
+                    Guardar Resultado
+                </button>
+    
+                <button
+                    class="btn btn-outline"
+                    onclick="restartGame()">
+                    Novo Jogo
+                </button>
+    
+            </div>
+    
+        </div>
+    </dialog>
     
     <script src="js/quiz.js?v=1"></script>
 </body>
