@@ -254,3 +254,32 @@ function exportJson()
         url
     );
 }
+
+function deleteQuestion(id)
+{
+    const question =
+        questions.find(
+            q => q.id === id
+        );
+
+    if(!question)
+    {
+        return;
+    }
+
+    if(
+        !confirm(
+            `Apagar a pergunta:\n\n"${question.question}"?`
+        )
+    )
+    {
+        return;
+    }
+
+    questions =
+        questions.filter(
+            q => q.id !== id
+        );
+
+    renderTable();
+}
