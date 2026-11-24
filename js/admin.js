@@ -46,9 +46,64 @@ async function loadJsonFile()
 
 function renderTable()
 {
+    const filterText =
+        document
+            .getElementById(
+                "filterText"
+            )
+            .value
+            .toLowerCase();
+
+    const filterType =
+        document
+            .getElementById(
+                "filterType"
+            )
+            .value;
+
+    const filterLevel =
+        document
+            .getElementById(
+                "filterLevel"
+            )
+            .value;
+
+    const filteredQuestions =
+        questions.filter(
+            question =>
+            {
+                const matchesText =
+                    question.question
+                        .toLowerCase()
+                        .includes(
+                            filterText
+                        );
+
+                const matchesType =
+                    !filterType
+                    ||
+                    question.type ===
+                    filterType;
+
+                const matchesLevel =
+                    !filterLevel
+                    ||
+                    question.level ===
+                    filterLevel;
+
+                return (
+                    matchesText
+                    &&
+                    matchesType
+                    &&
+                    matchesLevel
+                );
+            }
+        );
+
     let html = "";
 
-    questions.forEach(
+    filteredQuestions.forEach(
         (question,index) =>
         {
             html +=
@@ -68,15 +123,10 @@ function renderTable()
                 </td>
 
                 <td>
-                    ${
-                        question.question.length > 80
-                        ? question.question.substring(0,80) + "..."
-                        : question.question
-                    }
+                    ${question.question}
                 </td>
 
                 <td>
-
                     ${
                         question.image
                         ?
@@ -84,32 +134,25 @@ function renderTable()
                         :
                         ''
                     }
-
                 </td>
 
                 <td>
-
                     <button
                         class="btn btn-warning btn-sm me-1"
-                        onclick="editQuestion(${index})">
-
+                        onclick="editQuestion(${question.id})">
                         Editar
-
                     </button>
 
                     <button
                         class="btn btn-error btn-sm"
-                        onclick="deleteQuestion(${index})">
-
+                        onclick="deleteQuestion(${question.id})">
                         Apagar
-
                     </button>
-
                 </td>
-
             </tr>
             `;
-        });
+        }
+    );
 
     document
         .getElementById(
