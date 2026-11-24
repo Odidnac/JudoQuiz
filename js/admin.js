@@ -1,6 +1,18 @@
 let currentFile = "";
 let questions = [];
 
+const filePrefixes =
+{
+    "atletas.json": "ATL",
+    "dojo.json": "DOJ",
+    "filosofia.json": "FIL",
+    "historia.json": "HIS",
+    "historiaPRT.json": "HIC",
+    "katas.json": "KAT",
+    "regras.json": "REG",
+    "tecnicas.json": "TEC"
+};
+
 async function loadJsonFile()
 {
     try
@@ -34,6 +46,18 @@ async function loadJsonFile()
             .innerHTML =
             `Ficheiro atual: ${currentFile}`;
 
+        document
+            .getElementById(
+                "btnNewQuestion"
+            )
+            .disabled = false;
+        
+        document
+            .getElementById(
+                "btnExportJson"
+            )
+            .disabled = false;
+        
         renderTable();
     }
     catch(error)
@@ -423,4 +447,56 @@ function updateQuestionTypeFields()
         )
         .innerHTML =
         html;
+}
+
+function closeModal()
+{
+    document
+        .getElementById(
+            "questionModal"
+        )
+        .close();
+}
+
+function getNextQuestionId()
+{
+    const prefix =
+        filePrefixes[currentFile];
+
+    const numbers =
+        questions.map(
+            q =>
+                parseInt(
+                    q.id.split(".")[1]
+                )
+        );
+
+    const nextNumber =
+        numbers.length === 0
+            ? 1
+            : Math.max(...numbers) + 1;
+
+    return `${prefix}.${nextNumber}`;
+}
+
+function detectDuplicateIds()
+{
+    const ids =
+        new Set();
+
+    return questions.filter(
+        question =>
+        {
+            if(ids.has(question.id))
+            {
+                return true;
+            }
+
+            ids.add(
+                question.id
+            );
+
+            return false;
+        }
+    );
 }
