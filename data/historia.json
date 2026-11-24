@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "HIS.1",
     "category":"Historia",
     "level": "all",
     "type": "multiple_choice",
@@ -15,7 +15,7 @@
     "correct": 1
   },
   {
-    "id": 2,
+    "id": "HIS.2",
     "category":"Historia",
     "level": "all",
     "type": "text",
