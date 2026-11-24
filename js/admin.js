@@ -183,46 +183,30 @@ function exportJson()
                         question.type,
 
                     question:
-                        question.question
-                };
+                        question.question,
 
-                if(
-                    question.image
-                )
-                {
-                    obj.image =
-                        question.image;
-                }
+                    image:
+                        question.image || null
+                };
 
                 switch(question.type)
                 {
                     case "multiple_choice":
+                        obj.options = question.options || [];
 
-                        obj.options =
-                            question.options;
-
-                        obj.correct =
-                            question.correct;
-
+                        obj.correct = question.correct ?? 0;
                         break;
 
                     case "text":
-
-                        obj.acceptedAnswers =
-                            question.acceptedAnswers;
-
+                        obj.acceptedAnswers = question.acceptedAnswers || [];
                         break;
 
                     case "multiple_text":
 
                     case "ordered_text":
-
-                        obj.answers =
-                            question.answers;
-
+                        obj.answers = question.answers || [];
                         break;
                 }
-
                 return obj;
             }
         );
@@ -238,8 +222,7 @@ function exportJson()
         new Blob(
             [json],
             {
-                type:
-                    "application/json"
+                type: "application/json"
             }
         );
 
@@ -253,13 +236,19 @@ function exportJson()
             "a"
         );
 
-    link.href =
-        url;
+    link.href = url;
 
-    link.download =
-        currentFile;
+    link.download = currentFile;
+
+    document.body.appendChild(
+        link
+    );
 
     link.click();
+
+    document.body.removeChild(
+        link
+    );
 
     URL.revokeObjectURL(
         url
