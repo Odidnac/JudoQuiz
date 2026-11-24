@@ -57,6 +57,12 @@ async function loadJsonFile()
                 "btnExportJson"
             )
             .disabled = false;
+
+        document
+            .getElementById(
+                "btnDuplicates"
+            )
+            .disabled = false;
         
         renderTable();
     }
