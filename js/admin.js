@@ -506,3 +506,142 @@ function detectDuplicateIds()
         }
     );
 }
+
+function saveQuestion()
+{
+    const editId =
+        document
+            .getElementById(
+                "editId"
+            ).value;
+
+    const type =
+        document
+            .getElementById(
+                "type"
+            ).value;
+
+    const question =
+    {
+        id:editId || getNextQuestionId(),
+
+        category:getCurrentCategory(),
+
+        level:
+            document
+                .getElementById(
+                    "level"
+                ).value,
+        
+        type:type,
+
+        question:
+            document
+                .getElementById(
+                    "question"
+                ).value.trim(),
+
+        image:
+            document
+                .getElementById(
+                    "image"
+                ).value.trim()
+            ||
+            null
+    };
+
+    switch(type)
+    {
+        case "multiple_choice":
+
+            question.options =
+                document
+                    .getElementById(
+                        "options"
+                    )
+                    .value
+                    .split("\n")
+                    .map(
+                        x => x.trim()
+                    )
+                    .filter(
+                        x => x !== ""
+                    );
+
+            question.correct =
+                parseInt(
+                    document
+                        .getElementById(
+                            "correct"
+                        ).value
+                );
+
+            break;
+
+        case "text":
+
+            question.acceptedAnswers =
+                document
+                    .getElementById(
+                        "acceptedAnswers"
+                    )
+                    .value
+                    .split("\n")
+                    .map(
+                        x => x.trim()
+                    )
+                    .filter(
+                        x => x !== ""
+                    );
+            break;
+
+        case "multiple_text":
+        case "ordered_text":
+
+            question.answers =
+                document
+                    .getElementById(
+                        "answers"
+                    )
+                    .value
+                    .split("\n")
+                    .map(
+                        x => x.trim()
+                    )
+                    .filter(
+                        x => x !== ""
+                    );
+            break;
+    }
+
+    if(editId)
+    {
+        const index =
+            questions.findIndex(
+                q => q.id === editId
+            );
+
+        if(index >= 0)
+        {
+            questions[index] =
+                question;
+        }
+    }
+    else
+    {
+        questions.push(
+            question
+        );
+    }
+
+    renderTable();
+
+    closeModal();
+}
+
+function getCurrentCategory()
+{
+    return categories[
+        currentFile
+    ];
+}
