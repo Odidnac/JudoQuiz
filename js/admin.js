@@ -635,6 +635,18 @@ function saveQuestion()
 
 function getCurrentCategory()
 {
+    const categories =
+    {
+        "atletas.json": "Atletas",
+        "dojo.json": "Dojo",
+        "filosofia.json": "Filosofia",
+        "historia.json": "Historia",
+        "historiaPRT.json": "Historia Portugal",
+        "katas.json": "Katas",
+        "regras.json": "Regras",
+        "tecnicas.json": "Tecnicas"
+    };
+    
     return categories[
         currentFile
     ];
