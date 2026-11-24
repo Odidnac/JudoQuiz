@@ -59,14 +59,20 @@
 
             <button
                 class="btn btn-success"
-                onclick="addQuestion()">
+                onclick="addQuestion()" disabled>
                 Nova Pergunta
             </button>
 
             <button
                 class="btn btn-info"
-                onclick="exportJson()">
+                onclick="exportJson()" disabled>
                 Exportar JSON
+            </button>
+
+            <button
+                class="btn btn-warning"
+                onclick="analyseQuestions()">
+                Analisar Duplicados
             </button>
         </div>
 
