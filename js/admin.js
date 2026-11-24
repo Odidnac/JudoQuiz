@@ -383,11 +383,8 @@ function updateQuestionTypeFields()
                 class="textarea textarea-bordered w-full">
             </textarea>
 
-            <label
-                class="font-bold mt-4 block">
-
+            <label class="font-bold mt-4 block">
                 Índice da resposta correta
-
             </label>
 
             <input
@@ -409,8 +406,7 @@ function updateQuestionTypeFields()
             <textarea
                 id="acceptedAnswers"
                 rows="5"
-                class="textarea textarea-bordered w-full">
-            </textarea>
+                class="textarea textarea-bordered w-full"></textarea>
             `;
             break;
 
@@ -425,8 +421,7 @@ function updateQuestionTypeFields()
             <textarea
                 id="answers"
                 rows="10"
-                class="textarea textarea-bordered w-full">
-            </textarea>
+                class="textarea textarea-bordered w-full"></textarea>
             `;
             break;
 
@@ -441,8 +436,7 @@ function updateQuestionTypeFields()
             <textarea
                 id="answers"
                 rows="10"
-                class="textarea textarea-bordered w-full">
-            </textarea>
+                class="textarea textarea-bordered w-full"></textarea>
             `;
             break;
     }
