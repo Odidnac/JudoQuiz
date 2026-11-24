@@ -318,7 +318,7 @@ function addQuestion()
 {
     document
         .getElementById(
-            "editIndex"
+            "editId"
         )
         .value = "";
 
