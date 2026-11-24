@@ -380,8 +380,7 @@ function updateQuestionTypeFields()
             <textarea
                 id="options"
                 rows="5"
-                class="textarea textarea-bordered w-full">
-            </textarea>
+                class="textarea textarea-bordered w-full"></textarea>
 
             <label class="font-bold mt-4 block">
                 Índice da resposta correta
@@ -444,8 +443,7 @@ function updateQuestionTypeFields()
     document
         .getElementById(
             "questionTypeSpecificArea"
-        )
-        .innerHTML =
+        ).innerHTML =
         html;
 }
 
@@ -454,8 +452,7 @@ function closeModal()
     document
         .getElementById(
             "questionModal"
-        )
-        .close();
+        ).close();
 }
 
 function getNextQuestionId()
@@ -481,8 +478,7 @@ function getNextQuestionId()
 
 function detectDuplicateIds()
 {
-    const ids =
-        new Set();
+    const ids = new Set();
 
     return questions.filter(
         question =>
@@ -547,7 +543,6 @@ function saveQuestion()
     switch(type)
     {
         case "multiple_choice":
-
             question.options =
                 document
                     .getElementById(
@@ -569,11 +564,9 @@ function saveQuestion()
                             "correct"
                         ).value
                 );
-
             break;
 
         case "text":
-
             question.acceptedAnswers =
                 document
                     .getElementById(
@@ -591,7 +584,6 @@ function saveQuestion()
 
         case "multiple_text":
         case "ordered_text":
-
             question.answers =
                 document
                     .getElementById(
@@ -629,7 +621,6 @@ function saveQuestion()
     }
 
     renderTable();
-
     closeModal();
 }
 
