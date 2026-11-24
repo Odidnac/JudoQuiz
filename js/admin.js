@@ -161,3 +161,107 @@ function renderTable()
         .innerHTML =
         html;
 }
+
+function exportJson()
+{
+    const exportQuestions =
+        questions.map(
+            question =>
+            {
+                const obj =
+                {
+                    id:
+                        question.id,
+
+                    category:
+                        question.category,
+
+                    level:
+                        question.level,
+
+                    type:
+                        question.type,
+
+                    question:
+                        question.question
+                };
+
+                if(
+                    question.image
+                )
+                {
+                    obj.image =
+                        question.image;
+                }
+
+                switch(question.type)
+                {
+                    case "multiple_choice":
+
+                        obj.options =
+                            question.options;
+
+                        obj.correct =
+                            question.correct;
+
+                        break;
+
+                    case "text":
+
+                        obj.acceptedAnswers =
+                            question.acceptedAnswers;
+
+                        break;
+
+                    case "multiple_text":
+
+                    case "ordered_text":
+
+                        obj.answers =
+                            question.answers;
+
+                        break;
+                }
+
+                return obj;
+            }
+        );
+
+    const json =
+        JSON.stringify(
+            exportQuestions,
+            null,
+            2
+        );
+
+    const blob =
+        new Blob(
+            [json],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+    link.href =
+        url;
+
+    link.download =
+        currentFile;
+
+    link.click();
+
+    URL.revokeObjectURL(
+        url
+    );
+}
