@@ -283,3 +283,144 @@ function deleteQuestion(id)
 
     renderTable();
 }
+
+function addQuestion()
+{
+    document
+        .getElementById(
+            "editIndex"
+        )
+        .value = "";
+
+    document
+        .getElementById(
+            "level"
+        )
+        .value = "all";
+
+    document
+        .getElementById(
+            "type"
+        )
+        .value =
+        "multiple_choice";
+
+    document
+        .getElementById(
+            "question"
+        )
+        .value = "";
+
+    document
+        .getElementById(
+            "image"
+        )
+        .value = "";
+
+    updateQuestionTypeFields();
+
+    document
+        .getElementById(
+            "questionModal"
+        )
+        .showModal();
+}
+
+function updateQuestionTypeFields()
+{
+    const type =
+        document
+            .getElementById(
+                "type"
+            )
+            .value;
+
+    let html = "";
+
+    switch(type)
+    {
+        case "multiple_choice":
+            html =
+            `
+            <label class="font-bold">
+                Opções
+                (1 por linha)
+            </label>
+
+            <textarea
+                id="options"
+                rows="5"
+                class="textarea textarea-bordered w-full">
+            </textarea>
+
+            <label
+                class="font-bold mt-4 block">
+
+                Índice da resposta correta
+
+            </label>
+
+            <input
+                id="correct"
+                type="number"
+                min="0"
+                class="input input-bordered w-full">
+            `;
+            break;
+
+        case "text":
+            html =
+            `
+            <label class="font-bold">
+                Respostas Aceites
+                (1 por linha)
+            </label>
+
+            <textarea
+                id="acceptedAnswers"
+                rows="5"
+                class="textarea textarea-bordered w-full">
+            </textarea>
+            `;
+            break;
+
+        case "multiple_text":
+            html =
+            `
+            <label class="font-bold">
+                Respostas
+                (1 por linha)
+            </label>
+
+            <textarea
+                id="answers"
+                rows="10"
+                class="textarea textarea-bordered w-full">
+            </textarea>
+            `;
+            break;
+
+        case "ordered_text":
+            html =
+            `
+            <label class="font-bold">
+                Respostas pela ordem correta
+                (1 por linha)
+            </label>
+
+            <textarea
+                id="answers"
+                rows="10"
+                class="textarea textarea-bordered w-full">
+            </textarea>
+            `;
+            break;
+    }
+
+    document
+        .getElementById(
+            "questionTypeSpecificArea"
+        )
+        .innerHTML =
+        html;
+}
