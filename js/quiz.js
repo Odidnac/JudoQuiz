@@ -487,26 +487,38 @@ function awardScore()
 
 function updateScoreBoard()
 {
-    document
-        .getElementById(
+    const ipponsElement =
+        document.getElementById(
             "ippons"
-        )
-        .innerHTML =
-        ippons;
+        );
 
-    document
-        .getElementById(
+    const wazarisElement =
+        document.getElementById(
             "wazaris"
-        )
-        .innerHTML =
-        wazaris;
+        );
 
-    document
-        .getElementById(
+    const yukosElement =
+        document.getElementById(
             "yukos"
-        )
-        .innerHTML =
-        yukos;
+        );
+
+    if(ipponsElement)
+    {
+        ipponsElement.innerHTML =
+            ippons;
+    }
+
+    if(wazarisElement)
+    {
+        wazarisElement.innerHTML =
+            wazaris;
+    }
+
+    if(yukosElement)
+    {
+        yukosElement.innerHTML =
+            yukos;
+    }
 }
 
 function answerText()
