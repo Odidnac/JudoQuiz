@@ -19,6 +19,8 @@ let questions = [];
 let questionTimerInterval = null;
 let gameTimerInterval = null;
 
+let gameRunning = false;
+
 //Funções de validação de user
 window.onload = async function ()
 {
@@ -28,6 +30,9 @@ window.onload = async function ()
     {
         window.location.href = "index.html";
     }
+
+    gameRunning = false;
+    updateButtons();
     
     showWelcomeScreen();
 }
@@ -133,15 +138,29 @@ function restartGame()
 
     updateScoreBoard();
     updateShidos();
+    gameRunning = false;
+    updateButtons();
     showWelcomeScreen();
 }
 
-function confirmRestart()
+function confirmEndGame()
 {
+    if(!gameRunning)
+    {
+        return;
+    }
+    
     showConfirmDialog(
-        "Reiniciar Quiz",
-        "Todo o progresso atual será perdido. Pretende continuar?",
-        restartGame
+        "Terminar Jogo",
+        "Pretende terminar o jogo e calcular a pontuação atual?",
+        endGame
+    );
+}
+
+function endGame()
+{
+    showFinalScreen(
+        "quit"
     );
 }
 
@@ -273,6 +292,23 @@ async function startQuiz()
     updateShidos();
     startGameTimer();
     loadNextQuestion();
+
+    gameRunning = true;
+    updateButtons();
+}
+
+function updateButtons()
+{
+    const endGameButton =
+        document.getElementById(
+            "btnEndGame"
+        );
+
+    if(endGameButton)
+    {
+        endGameButton.disabled =
+            !gameRunning;
+    }
 }
 //End Funções de inicio ou reinicio de Jogo
 
@@ -645,92 +681,9 @@ function saveHighScore()
 
 function victory()
 {
-    clearInterval(
-        gameTimerInterval
+    showFinalScreen(
+        "victory"
     );
-
-    clearInterval(
-        questionTimerInterval
-    );
-
-    const score = calculateFinalScore();
-
-    document
-        .getElementById(
-            "victoryTitle"
-        )
-        .innerHTML = getVictoryTitle();
-
-    document
-        .getElementById(
-            "victoryText"
-        )
-        .innerHTML = getVictoryDescription();
-
-    document
-        .getElementById(
-            "finalIppons"
-        )
-        .innerHTML = ippons;
-
-    document
-        .getElementById(
-            "finalWazaris"
-        )
-        .innerHTML = wazaris;
-
-    document
-        .getElementById(
-            "finalYukos"
-        )
-        .innerHTML = yukos;
-
-    document
-        .getElementById(
-            "finalIpponPoints"
-        )
-        .innerHTML = score.ipponPoints + " pontos";
-
-    document
-        .getElementById(
-            "finalWazariPoints"
-        )
-        .innerHTML = score.wazariPoints + " pontos";
-
-    document
-        .getElementById(
-            "finalYukoPoints"
-        )
-        .innerHTML = score.yukoPoints + " pontos";
-
-    document
-        .getElementById(
-            "finalBonusTitle"
-        )
-        .innerHTML = getVictoryTitle();
-
-    document
-        .getElementById(
-            "finalBonusPoints"
-        )
-        .innerHTML = score.bonus + " pontos extra";
-
-    document
-        .getElementById(
-            "finalTotalScore"
-        )
-        .innerHTML = score.total;
-
-    document
-        .getElementById(
-            "rankingName"
-        )
-        .value = localStorage.getItem("playerName") || "";
-
-    document
-        .getElementById(
-            "victoryModal"
-        ).showModal();
 }
 
 function getVictoryDescription()
@@ -808,6 +761,141 @@ function showHighScores()
     document.getElementById(
             "highScoresModal"
         ).showModal();
+}
+
+function showFinalScreen(
+    resultType
+)
+{
+    clearInterval(
+        gameTimerInterval
+    );
+
+    clearInterval(
+        questionTimerInterval
+    );
+
+    const score = calculateFinalScore();
+
+    let title = "";
+    let text = "";
+
+    switch(resultType)
+    {
+        case "victory":
+            title = getVictoryTitle();
+            text = getVictoryDescription();
+            break;
+
+        case "hansoku":
+            title = "🥋 HANSOKU-MAKE";
+            text = "O jogo terminou por acumulação de 3 Shidos.";
+            break;
+
+        case "quit":
+            title = "⏹️ JOGO TERMINADO";
+            text = "O jogo foi terminado pelo utilizador. A pontuação apresentada corresponde ao progresso obtido até ao momento.";
+            break;
+    }
+
+    document
+        .getElementById(
+            "victoryTitle"
+        )
+        .innerHTML =
+        title;
+
+    document
+        .getElementById(
+            "victoryText"
+        )
+        .innerHTML =
+        text;
+
+    document
+        .getElementById(
+            "finalIppons"
+        )
+        .innerHTML =
+        ippons;
+
+    document
+        .getElementById(
+            "finalWazaris"
+        )
+        .innerHTML =
+        wazaris;
+
+    document
+        .getElementById(
+            "finalYukos"
+        )
+        .innerHTML =
+        yukos;
+
+    document
+        .getElementById(
+            "finalIpponPoints"
+        )
+        .innerHTML =
+        score.ipponPoints +
+        " pontos";
+
+    document
+        .getElementById(
+            "finalWazariPoints"
+        )
+        .innerHTML =
+        score.wazariPoints +
+        " pontos";
+
+    document
+        .getElementById(
+            "finalYukoPoints"
+        )
+        .innerHTML =
+        score.yukoPoints +
+        " pontos";
+
+    document
+        .getElementById(
+            "finalBonusTitle"
+        )
+        .innerHTML =
+        getBonusTitle();
+
+    document
+        .getElementById(
+            "finalBonusPoints"
+        )
+        .innerHTML =
+        score.bonus +
+        " pontos extra";
+
+    document
+        .getElementById(
+            "finalTotalScore"
+        )
+        .innerHTML =
+        score.total;
+
+    document
+        .getElementById(
+            "rankingName"
+        )
+        .value =
+        localStorage.getItem(
+            "playerName"
+        ) || "";
+
+    document
+        .getElementById(
+            "victoryModal"
+        )
+        .showModal();
+
+    gameRunning = true;
+    updateButtons();
 }
 //End Funções de gestão de pontos e vidas de jogo
 
