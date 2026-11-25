@@ -184,14 +184,30 @@ async function startQuiz()
         `
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
-                <div class="font-bold text-xl">
-                    ${localStorage.getItem("playerName")}
-                </div>
-
                 <div
-                    id="timersBar"
-                    class="text-center text-sm font-semibold">
-                    ⏱️ 00:00 | 🕒 00s
+                    class="
+                    flex
+                    justify-between
+                    items-center
+                    flex-wrap
+                    gap-2">
+                
+                    <div
+                        class="font-bold text-lg"
+                        id="playerName">
+                
+                        ${localStorage.getItem("playerName")}
+                
+                    </div>
+                
+                    <div
+                        id="timersBar"
+                        class="text-sm font-semibold">
+                
+                        ⏱️ 00:00 | 🕒 00s
+                
+                    </div>
+                
                 </div>
 
                 <div class="divider"></div>
@@ -251,15 +267,6 @@ async function startQuiz()
                         class="badge badge-secondary badge-lg">
                     </span>
                 
-                </div>
-            
-                <div>
-                    <span class="font-bold">
-                        Nível:
-                    </span>
-            
-                    <span id="questionLevel" class="badge badge-secondary">
-                    </span>
                 </div>
             </div>
             
