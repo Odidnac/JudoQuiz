@@ -188,19 +188,19 @@ async function startQuiz()
                     ${localStorage.getItem("playerName")}
                 </div>
 
-                <div class="flex justify-between">
-                    <div id="gameTimer">
+                <div class="flex flex-col md:flex-row md:justify-between gap-2">
+                    <div id="gameTimer" class="text-sm md:text-base">
                         ⏱️ Tempo Total Jogo: 00:00
                     </div>
 
-                    <div id="questionTimer">
+                    <div id="questionTimer" class="text-sm md:text-base">
                         🕒 Tempo Restante Pergunta: 00
                     </div>
                 </div>
 
                 <div class="divider"></div>
 
-                <div class="grid grid-cols-4 gap-3">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div class="text-center">
                         <div class="text-xs opacity-70">
                             Ippons
@@ -249,14 +249,19 @@ async function startQuiz()
 
                 <div class="divider"></div>
 
-                <div class="flex justify-between items-center">
+                <div class="
+                            flex
+                            flex-col
+                            md:flex-row
+                            md:justify-between
+                            gap-2">
 
                 <div>
                     <span class="font-bold">
                         Categoria:
                     </span>
             
-                    <span id="questionCategory">
+                    <span id="questionCategory" class="badge badge-primary">
                     </span>
                 </div>
             
@@ -265,7 +270,7 @@ async function startQuiz()
                         Nível:
                     </span>
             
-                    <span id="questionLevel">
+                    <span id="questionLevel" class="badge badge-secondary">
                     </span>
                 </div>
             </div>
@@ -273,11 +278,17 @@ async function startQuiz()
             <div class="divider"></div>
                 <h2
                     id="question"
-                    class="text-2xl font-bold">
+                    class="text-xl md:text-2xl font-bold">
                 </h2>
                 <div
                     id="questionImage"
-                    class="my-4 text-center">
+                    class="mx-auto
+                           rounded-lg
+                           shadow-lg
+                           w-full
+                           max-w-md
+                           max-h-80
+                           object-contain">
                 </div>
                 <div
                     id="questionArea"
@@ -712,7 +723,8 @@ function showHighScores()
 
     let html =
         `
-        <table class="table table-zebra">
+        <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
             <thead>
                 <tr>
                     <th>#</th>
@@ -750,6 +762,7 @@ function showHighScores()
     html +=
         `    </tbody>
         </table>
+        </div>
         `;
 
     document
@@ -894,8 +907,103 @@ function showFinalScreen(
         )
         .showModal();
 
-    gameRunning = true;
+    gameRunning = false;
     updateButtons();
+}
+
+function validateMultipleText()
+{
+    const correctAnswers =
+        currentQuestion.acceptedAnswers;
+
+    const givenAnswers = [];
+
+    for(
+        let index = 0;
+        index < correctAnswers.length;
+        index++
+    )
+    {
+        givenAnswers.push(
+            document
+                .getElementById(
+                    `field_${index}`
+                )
+                .value
+                .trim()
+                .toLowerCase()
+        );
+    }
+
+    let score = 0;
+
+    correctAnswers.forEach(
+        acceptedList =>
+        {
+            const found =
+                givenAnswers.some(
+                    answer =>
+                        acceptedList.includes(
+                            answer
+                        )
+                );
+
+            if(found)
+            {
+                score++;
+            }
+        }
+    );
+
+    if(score === correctAnswers.length)
+    {
+        answerCorrect();
+    }
+    else
+    {
+        answerWrong();
+    }
+}
+
+function validateOrderedText()
+{
+    const acceptedAnswers =
+        currentQuestion.acceptedAnswers;
+
+    let correct = true;
+
+    for(
+        let index = 0;
+        index < acceptedAnswers.length;
+        index++
+    )
+    {
+        const answer =
+            document
+                .getElementById(
+                    `field_${index}`
+                )
+                .value
+                .trim()
+                .toLowerCase();
+
+        const accepted = acceptedAnswers[index];
+
+        if(!accepted.includes(answer))
+        {
+            correct = false;
+            break;
+        }
+    }
+
+    if(correct)
+    {
+        answerCorrect();
+    }
+    else
+    {
+        answerWrong();
+    }
 }
 //End Funções de gestão de pontos e vidas de jogo
 
@@ -1036,20 +1144,24 @@ function renderMultiFieldQuestion()
 {
     let html = "";
 
-    currentQuestion.fields.forEach(
-        (field,index) =>
-        {
-            html += `
-                <input
-                    id="field_${index}"
-                    class="input input-bordered w-full mb-2"
-                    placeholder="${field}">
-            `;
-        });
+    for(
+        let index = 0;
+        index < currentQuestion.acceptedAnswers.length;
+        index++
+    )
+    {
+        html += `
+            <input
+                id="field_${index}"
+                class="input input-bordered w-full mb-2"
+                placeholder="Resposta ${index + 1}">
+        `;
+    }
 
     html += `
         <button
-            class="btn btn-primary mt-3">
+            class="btn btn-primary w-full mt-3"
+            onclick="answerMultiField()">
 
             Responder
 
@@ -1057,7 +1169,9 @@ function renderMultiFieldQuestion()
     `;
 
     document
-        .getElementById("questionArea")
+        .getElementById(
+            "questionArea"
+        )
         .innerHTML =
         html;
 }
@@ -1085,7 +1199,13 @@ function renderMultipleChoice()
         {
             html += `
                 <button
-                    class="btn btn-outline w-full mb-2"
+                    class="
+                            btn
+                            btn-outline
+                            w-full
+                            mb-2
+                            min-h-14
+                            whitespace-normal"
                     onclick="answerMultipleChoice(${index})">
                     ${option}
                 </button>
@@ -1114,7 +1234,11 @@ function renderText()
             autocomplete="off">
 
         <button
-            class="btn btn-primary mt-3"
+            class="
+                    btn
+                    btn-primary
+                    mt-3
+                    w-full"
             onclick="answerText()">
             Responder
         </button>
@@ -1230,7 +1354,7 @@ function getQuestionTime()
     )
     {
         return 20 + (
-            (currentQuestion.fields.length - 1) * 5
+            (currentQuestion.acceptedAnswers.length - 1) * 5
         );
     }
 
