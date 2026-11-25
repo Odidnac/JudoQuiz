@@ -426,6 +426,7 @@ function answerMultipleChoice(index)
     }
 }
 
+let questionTimeRemaining = 0;
 function awardScore()
 {
     switch(currentQuestion.type)
