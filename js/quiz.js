@@ -120,6 +120,12 @@ function logout()
 //Funções de inicio ou reinicio de Jogo
 function restartGame()
 {
+    document
+        .getElementById(
+            "victoryModal"
+        )
+        ?.close();
+    
     clearInterval(
         gameTimerInterval
     );
@@ -690,6 +696,12 @@ function saveHighScore()
         )
     );
 
+    document
+        .getElementById(
+            "victoryModal"
+        )
+        ?.close();
+    
     restartGame();
 }
 
