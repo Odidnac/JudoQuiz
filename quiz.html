@@ -29,9 +29,11 @@
             </button>
             
             <button
-                class="btn btn-warning btn-sm"
-                onclick="confirmRestart()">
-                Restart
+                class="btn btn-neutral btn-sm"
+                onclick="confirmEndGame()">
+            
+                Terminar Jogo
+            
             </button>
 
             <button
@@ -145,14 +147,14 @@
             <div class="modal-action justify-center">
                 <button
                     class="btn btn-primary"
-                    onclick="restartGame()">
-                    Novo Jogo
+                    onclick="showFinalScreen("hansoku")">
+                    Calcular Pontuação final
                 </button>
-    
+                
                 <button
                     class="btn btn-outline"
                     onclick="logout()">
-                    Sair
+                    Sair sem calcular pontuação
                 </button>
             </div>
         </div>
