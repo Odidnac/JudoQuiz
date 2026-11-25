@@ -9,33 +9,34 @@
         href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css"
         rel="stylesheet">
     <link rel="icon" href="data:,">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body class="bg-base-200 min-h-screen">
     <!-- Navbar -->
-    <div class="navbar bg-primary text-primary-content">
+    <div class="navbar bg-primary text-primary-content flex-wrap">
 
         <div class="flex-1">
-            <span class="text-xl font-bold">
+            <span class="text-lg md:text-xl font-bold">
                 🥋 Judo Quiz
             </span>
         </div>
 
-        <div class="flex-none gap-2">
+        <div class="flex flex-wrap gap-2 justify-end">
             <button
-                class="btn btn-sm"
+                class="btn btn-sm md:btn-md"
                 onclick="showHighScores()">
                 Top 10
             </button>
             
             <button
-                class="btn btn-neutral btn-sm"
+                class="btn btn-neutral btn-sm md:btn-md"
                 onclick="confirmEndGame()">
                 Terminar Jogo
             </button>
 
             <button
-                class="btn btn-error btn-sm"
+                class="btn btn-error btn-sm md:btn-md"
                 onclick="logout()">
                 Logout
             </button>
@@ -45,7 +46,7 @@
     <!-- Área Principal -->
     <div
         id="gameContent"
-        class="max-w-4xl mx-auto p-3">
+        class="max-w-4xl mx-auto p-2 md:p-4">
     </div>
 
     <!-- Dialog Confirmação -->
@@ -81,49 +82,11 @@
             </div>
         </div>
     </dialog>
-
-    <dialog
-    id="hansokuModal"
-    class="modal">
-
-        <div class="modal-box">
-            <h3 class="font-bold text-3xl text-error">
-                🥋 HANSOKU-MAKE
-            </h3>
-            
-            <!-- IMAGEM -->
-    
-            <div class="my-4 flex justify-center">
-                <img
-                    src="images/Hansoku-Make.png"
-                    alt="Hansoku-Make"
-                   class="rounded-lg shadow-lg w-full max-w-xs">
-            </div>
-            
-            <p class="py-4">
-                Acumulaste 3 Shidos.
-            </p>
-    
-            <div class="modal-action">
-                <button
-                    class="btn btn-primary"
-                    onclick="restartGame()">
-                    Novo Jogo
-                </button>
-    
-                <button
-                    class="btn"
-                    onclick="logout()">
-                    Sair
-                </button>
-            </div>
-        </div>
-    </dialog>
     
     <dialog
     id="hansokuModal"
     class="modal">
-        <div class="modal-box text-center">
+        <div class="modal-box w-11/12 max-w-lg text-center">
             <h3
                 class="font-bold text-3xl text-error">
                 🥋 HANSOKU-MAKE
@@ -132,7 +95,7 @@
                 <img
                     src="images/Hansoku-Make.png"
                     alt="Hansoku-Make"
-                    class="mx-auto rounded-lg shadow-lg max-w-xs">
+                    class="class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain"">
             </div>
             <p
                 class="py-2 text-lg">
@@ -145,7 +108,7 @@
             <div class="modal-action justify-center">
                 <button
                     class="btn btn-primary"
-                    onclick="showFinalScreen("hansoku")">
+                    onclick="showFinalScreen('hansoku')">
                     Calcular Pontuação final
                 </button>
                 
@@ -162,7 +125,7 @@
     id="decisionModal"
     class="modal">
 
-        <div class="modal-box text-center">
+        <div class="modal-box w-11/12 max-w-lg text-center">
             <h3
                 id="decisionTitle"
                 class="font-bold text-3xl">
@@ -172,7 +135,7 @@
                 <img
                     id="decisionImage"
                     src=""
-                    class="mx-auto rounded-lg shadow-lg max-w-xs">
+                    class="class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain"">
             </div>
         </div>
     </dialog>
@@ -180,16 +143,16 @@
     <dialog
     id="victoryModal"
     class="modal">
-        <div class="modal-box max-w-2xl">
+        <div class="modal-box w-11/12 max-w-2xl">
             <div class="text-center">
                 <h2
                     id="victoryTitle"
-                    class="text-4xl font-bold text-warning">
+                    class="text-2xl md:text-4xl font-bold text-warning">
                     🥇 OURO OLÍMPICO
                 </h2>
                 <p
                     id="victoryText"
-                    class="text-lg">
+                    class="text-base md:text-lg">
                     Parabéns pela vitória.
     
                     A sua prestação valeu-lhe o
@@ -248,7 +211,7 @@
     
             <div class="divider"></div>
     
-            <div class="flex justify-between text-2xl font-bold">
+            <div class="flex justify-between gap-4 text-xl md:text-2xl font-bold">
                 <span>
                     TOTAL
                 </span>
@@ -296,7 +259,7 @@
     <dialog
     id="highScoresModal"
     class="modal">
-        <div class="modal-box max-w-2xl">
+        <div class="modal-box w-11/12 max-w-2xl">
             <h2 class="text-3xl font-bold text-center">
                 🏆 Top 10
             </h2>
