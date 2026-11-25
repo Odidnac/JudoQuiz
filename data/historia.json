@@ -28,13 +28,42 @@
   ,
   {
     "id": "HIS.3",
-    "category":"Historia",
+    "category": "Historia",
+    "level": "1kyu",
+    "type": "multiple_text",
+    "question": "Indique três dos primeiros alunos destacados de Jigoro Kano.",
+    "image": null,
+    "acceptedAnswers": 
+    [
+      [
+        "shiro saigo"
+      ],
+      [
+        "tsunejiro tomita"
+      ],
+      [
+        "yokoyama sakujiro"
+      ]
+    ]
+  },
+  {
+    "id": "HIS.4",
+    "category": "Historia",
     "level": "all",
-    "type": "text",
-    "question": "Quem são os Kōdōkan Shitennō",
-    "image":null,
-    "acceptedAnswers": [
-      "jigoro kano"
+    "type": "ordered_text",
+    "question": "Ordene cronologicamente os acontecimentos seguintes.",
+    "image": null,
+    "acceptedAnswers": 
+    [
+      [
+        "fundacao do kodokan"
+      ],
+      [
+        "entrada nas escolas japonesas"
+      ],
+      [
+        "entrada nos jogos olimpicos"
+      ]
     ]
   }
 ]
