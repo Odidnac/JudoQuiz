@@ -122,6 +122,18 @@ function confirmRestart()
     );
 }
 
+function showConfirmDialog(
+    title,
+    text,
+    callback
+)
+{
+    if(confirm(text))
+    {
+        callback();
+    }
+}
+
 async function startQuiz()
 {
     document
