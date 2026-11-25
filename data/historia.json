@@ -22,8 +22,19 @@
     "question": "Quem foi o fundador do Judo?",
     "image":null,
     "acceptedAnswers": [
-      "jigoro kano",
-      "kano"
+      "jigoro kano"
+    ]
+  }
+  ,
+  {
+    "id": "HIS.3",
+    "category":"Historia",
+    "level": "all",
+    "type": "text",
+    "question": "Quem são os Kōdōkan Shitennō",
+    "image":null,
+    "acceptedAnswers": [
+      "jigoro kano"
     ]
   }
 ]
