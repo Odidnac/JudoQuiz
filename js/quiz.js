@@ -869,7 +869,7 @@ function showFinalScreen(
             "finalBonusTitle"
         )
         .innerHTML =
-        getBonusTitle();
+        getVictoryTitle();
 
     document
         .getElementById(
