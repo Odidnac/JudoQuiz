@@ -188,63 +188,45 @@ async function startQuiz()
                     ${localStorage.getItem("playerName")}
                 </div>
 
-                <div class="flex flex-col md:flex-row md:justify-between gap-2">
-                    <div id="gameTimer" class="text-sm md:text-base">
-                        ⏱️ Tempo Total Jogo: 00:00
-                    </div>
-
-                    <div id="questionTimer" class="text-sm md:text-base">
-                        🕒 Tempo Restante Pergunta: 00
-                    </div>
+                <div
+                    id="timersBar"
+                    class="text-center text-sm font-semibold">
+                    ⏱️ 00:00 | 🕒 00s
                 </div>
 
                 <div class="divider"></div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="text-center">
-                        <div class="text-xs opacity-70">
-                            Ippons
-                        </div>
+                <div
+                    class="flex flex-wrap justify-center gap-2">
                 
-                        <div
-                            id="ippons"
-                            class="badge badge-success badge-lg">
+                    <span class="badge badge-success badge-lg">
+                        🥇
+                        <span id="ippons">
                             0
-                        </div>
-                    </div>
+                        </span>
+                    </span>
                 
-                    <div class="text-center">
-                        <div class="text-xs opacity-70">
-                            Wazaris
-                        </div>
-                        <div
-                            id="wazaris"
-                            class="badge badge-neutral badge-lg">
+                    <span
+                        class="badge badge-neutral badge-lg">
+                        🥈
+                        <span id="wazaris">
                             0
-                        </div>
-                    </div>
+                        </span>
+                    </span>
                 
-                    <div class="text-center">
-                        <div class="text-xs opacity-70">
-                            Yukos
-                        </div>
-                        <div
-                            id="yukos"
-                            class="badge badge-info badge-lg">
+                    <span
+                        class="badge badge-info badge-lg">
+                        🥉
+                        <span id="yukos">
                             0
-                        </div>
-                    </div>
+                        </span>
+                    </span>
                 
-                    <div class="text-center">
-                        <div class="text-xs opacity-70">
-                            Shidos
-                        </div>
+                    <span
+                        id="shidos"
+                        class="badge badge-error badge-lg">
+                    </span>
                 
-                        <div
-                            id="shidos"
-                            class="flex gap-1 justify-center">
-                        </div>
-                    </div>
                 </div>
 
                 <div class="divider"></div>
@@ -256,13 +238,19 @@ async function startQuiz()
                             md:justify-between
                             gap-2">
 
-                <div>
-                    <span class="font-bold">
-                        Categoria:
+                <div
+                    class="flex flex-wrap justify-center gap-2">
+                
+                    <span
+                        id="questionCategory"
+                        class="badge badge-primary badge-lg">
                     </span>
-            
-                    <span id="questionCategory" class="badge badge-primary">
+                
+                    <span
+                        id="questionLevel"
+                        class="badge badge-secondary badge-lg">
                     </span>
+                
                 </div>
             
                 <div>
@@ -324,10 +312,6 @@ function updateButtons()
 //End Funções de inicio ou reinicio de Jogo
 
 //Funções de gestão de pontos e vidas de jogo
-function updateScoreBoard()
-{
-}
-
 function updateShidos()
 {
     const shidosElement =
@@ -340,16 +324,18 @@ function updateShidos()
         return;
     }
 
-    html = "";
-    for(i = 0; i < 3; i++)
+    let text = "";
+
+    for(let i = 0; i < 3; i++)
     {
-        html +=
+        text +=
             i < shidos
-                ? '<div class="badge badge-error">S</div>'
-                : '<div class="badge badge-outline">-</div>';
+            ? "S"
+            : "-";
     }
 
-    shidosElement.innerHTML = html;
+    shidosElement.innerHTML =
+        `⚠️ ${text}`;
 }
 
 function answerWrong()
@@ -1265,11 +1251,11 @@ function startGameTimer()
         );
 }
 
-function updateGameTimer()
+function updateTimersBar()
 {
     const timerElement =
         document.getElementById(
-            "gameTimer"
+            "timersBar"
         );
 
     if(!timerElement)
@@ -1298,14 +1284,17 @@ function updateGameTimer()
         ).padStart(2,"0");
 
     timerElement.innerHTML =
-        `⏱️ Tempo Total Jogo: ${minutes}:${seconds}`;
+        `⏱️ ${minutes}:${seconds} | 🕒 ${questionTimeRemaining}s`;
+}
+
+function updateGameTimer()
+{
+    updateTimersBar();
 }
 
 function startQuestionTimer()
 {
     clearInterval(questionTimerInterval);
-    updateQuestionTimer();
-    
     updateQuestionTimer();
     
     questionTimerInterval =
@@ -1331,18 +1320,7 @@ function startQuestionTimer()
 
 function updateQuestionTimer()
 {
-    const questionTimer =
-        document.getElementById(
-            "questionTimer"
-        );
-
-    if(!questionTimer)
-    {
-        return;
-    }
-
-    questionTimer.innerHTML =
-        `🕒 Tempo Restante Pergunta: ${questionTimeRemaining}s`;
+    updateTimersBar();
 }
 
 function getQuestionTime()
