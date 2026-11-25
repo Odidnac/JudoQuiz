@@ -67,16 +67,27 @@
                 Tem a certeza?
             </p>
 
-            <div class="modal-action">
+            <div
+                class="
+                modal-action
+                flex-col
+                sm:flex-row">
                 <button
-                    class="btn btn-primary"
+                    class="
+                    btn
+                    btn-primary
+                    w-full
+                    sm:w-auto"
                     id="confirmYes">
                     Sim
                 </button>
 
                 <button
-                    class="btn"
-                    onclick="closeConfirmDialog()">
+                        class="
+                        btn
+                        w-full
+                        sm:w-auto"
+                        onclick="closeConfirmDialog()">
                     Não
                 </button>
             </div>
@@ -94,21 +105,30 @@
                 <img
                     src="images/Hansoku-Make.png"
                     alt="Hansoku-Make"
-                    class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain">
+                    class="
+                            mx-auto
+                            rounded-lg
+                            shadow-lg
+                            w-full
+                            max-w-[160px]
+                            object-contain">
             </div>
             <p class="py-1 text-sm md:text-lg">
                 Acumulaste 3 Shidos. Foste eliminado deste torneio!
             </p>
             <div
                 id="hansokuStats"
-                class="my-4">
+                class="my-2">
             </div>
             <div
                 class="
                 modal-action
+                flex
                 flex-col
+                gap-2
                 sm:flex-row
-                justify-center">
+                sm:justify-center
+                sm:items-center">
                 <button
                     class="btn btn-primary w-full sm:w-auto"
                     onclick="document.getElementById('hansokuModal').close();showFinalScreen('hansoku')">
@@ -116,7 +136,7 @@
                 </button>
                 
                 <button
-                    class="btn btn-primary w-full sm:w-auto"
+                    class="btn btn-outline w-full sm:w-auto"
                     onclick="logout()">
                     Sair sem calcular pontuação
                 </button>
@@ -244,10 +264,12 @@
             <div
                 class="
                 modal-action
+                flex
                 flex-col
+                gap-2
                 sm:flex-row
-                justify-center
-                mt-3">
+                sm:justify-center
+                sm:items-center">
                 <button
                     class="btn btn-primary w-full sm:w-auto"
                     onclick="saveHighScore()">
@@ -277,9 +299,16 @@
     
             <div id="highScoresTable"></div>
     
-            <div class="modal-action">
+            <div
+                class="
+                modal-action
+                flex-col
+                sm:flex-row">
                 <button
-                    class="btn"
+                    class="
+                            btn
+                            w-full
+                            sm:w-auto"
                     onclick="document.getElementById('highScoresModal').close()">
                     Fechar
                 </button>
@@ -287,7 +316,7 @@
         </div>
     </dialog>
 
-    <script src="js/quiz.js?v=8"></script>
+    <script src="js/quiz.js?v=9"></script>
 </body>
 
 </html>
