@@ -22,21 +22,21 @@
             </span>
         </div>
 
-        <div class="flex flex-wrap gap-2 justify-end">
+        <div class="flex gap-1 justify-end">
             <button
-                class="btn btn-sm md:btn-md"
+                class="btn btn-xs md:btn-sm"
                 onclick="showHighScores()">
                 Top 10
             </button>
             
             <button
-                class="btn btn-neutral btn-sm md:btn-md"
+                class="btn btn-neutral btn-xs md:btn-sm"
                 onclick="confirmEndGame()">
                 Terminar Jogo
             </button>
 
             <button
-                class="btn btn-error btn-sm md:btn-md"
+                class="btn btn-error btn-xs md:btn-sm"
                 onclick="logout()">
                 Logout
             </button>
@@ -86,34 +86,37 @@
     <dialog
     id="hansokuModal"
     class="modal">
-        <div class="modal-box w-11/12 max-w-lg text-center">
-            <h3
-                class="font-bold text-3xl text-error">
+        <div class="modal-box w-11/12 max-w-lg text-center p-3">
+            <h3 class="font-bold text-xl md:text-3xl text-error">
                 🥋 HANSOKU-MAKE
             </h3>
             <div class="my-4">
                 <img
                     src="images/Hansoku-Make.png"
                     alt="Hansoku-Make"
-                    class="class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain"">
+                    class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain">
             </div>
-            <p
-                class="py-2 text-lg">
+            <p class="py-1 text-sm md:text-lg">
                 Acumulaste 3 Shidos. Foste eliminado deste torneio!
             </p>
             <div
                 id="hansokuStats"
                 class="my-4">
             </div>
-            <div class="modal-action justify-center">
+            <div
+                class="
+                modal-action
+                flex-col
+                sm:flex-row
+                justify-center">
                 <button
-                    class="btn btn-primary"
+                    class="btn btn-primary w-full sm:w-auto"
                     onclick="showFinalScreen('hansoku')">
                     Calcular Pontuação final
                 </button>
                 
                 <button
-                    class="btn btn-outline"
+                    class="btn btn-primary w-full sm:w-auto"
                     onclick="logout()">
                     Sair sem calcular pontuação
                 </button>
@@ -125,17 +128,17 @@
     id="decisionModal"
     class="modal">
 
-        <div class="modal-box w-11/12 max-w-lg text-center">
+        <div class="modal-box w-11/12 max-w-lg text-center p-3">
             <h3
                 id="decisionTitle"
-                class="font-bold text-3xl">
+                class="font-bold text-xl md:text-3xl">
             </h3>
     
             <div class="my-4">
                 <img
                     id="decisionImage"
                     src=""
-                    class="class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain"">
+                    class="mx-auto rounded-lg shadow-lg w-full max-w-xs object-contain">
             </div>
         </div>
     </dialog>
@@ -147,7 +150,7 @@
             <div class="text-center">
                 <h2
                     id="victoryTitle"
-                    class="text-2xl md:text-4xl font-bold text-warning">
+                    class="text-xl md:text-4xl font-bold text-warning">
                     🥇 OURO OLÍMPICO
                 </h2>
                 <p
@@ -160,14 +163,14 @@
                 </p>
             </div>
     
-            <div class="divider"></div>
+            <div class="divider my-1"></div>
     
             <h3 class="font-bold text-xl">
                 Pontuação Detalhada
             </h3>
     
             <div class="space-y-2 mt-4">
-                <div class="flex justify-between">
+                <div class="flex justify-between text-sm md:text-base">
                     <span>
                         <strong id="finalIppons">7</strong>
                         Ippons
@@ -177,7 +180,7 @@
                     </span>
                 </div>
     
-                <div class="flex justify-between">
+                <div class="flex justify-between text-sm md:text-base">
                     <span>
                         <strong id="finalWazaris">9</strong>
                         Wazaris
@@ -187,7 +190,7 @@
                     </span>
                 </div>
     
-                <div class="flex justify-between">
+                <div class="flex justify-between text-sm md:text-base">
                     <span>
                         <strong id="finalYukos">35</strong>
                         Yukos
@@ -197,7 +200,7 @@
                     </span>
                 </div>
     
-                <div class="flex justify-between font-bold text-success">
+                <div class="flex justify-between text-sm md:text-base font-bold text-success">
                     <span id="finalBonusTitle">
                         Ouro Olímpico
                     </span>
@@ -211,7 +214,7 @@
     
             <div class="divider"></div>
     
-            <div class="flex justify-between gap-4 text-xl md:text-2xl font-bold">
+            <div class="flex justify-between gap-2 text-lg md:text-2xl font-bold">
                 <span>
                     TOTAL
                 </span>
@@ -224,7 +227,7 @@
             <div class="divider"></div>
     
             <div>
-                <label class="label">
+                <label class="label py-1">
                     <span class="label-text">
                         Nome para o Ranking
                     </span>
@@ -238,15 +241,21 @@
     
             </div>
     
-            <div class="modal-action justify-center mt-6">
+            <div
+                class="
+                modal-action
+                flex-col
+                sm:flex-row
+                justify-center
+                mt-3">
                 <button
-                    class="btn btn-primary"
+                    class="btn btn-primary w-full sm:w-auto"
                     onclick="saveHighScore()">
                     Guardar Resultado
                 </button>
     
                 <button
-                    class="btn btn-outline"
+                    class="btn btn-outline w-full sm:w-auto"
                     onclick="restartGame()">
                     Novo Jogo
                 </button>
@@ -260,7 +269,7 @@
     id="highScoresModal"
     class="modal">
         <div class="modal-box w-11/12 max-w-2xl">
-            <h2 class="text-3xl font-bold text-center">
+            <h2 class="text-xl md:text-3xl font-bold text-center">
                 🏆 Top 10
             </h2>
     
