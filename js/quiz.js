@@ -210,8 +210,6 @@ async function startQuiz()
                 
                 </div>
 
-                <div class="divider"></div>
-
                 <div
                     class="flex flex-wrap justify-center gap-2">
                 
@@ -245,7 +243,7 @@ async function startQuiz()
                 
                 </div>
 
-                <div class="divider"></div>
+                <div class="divider my-1"></div>
 
                 <div class="
                             flex
@@ -270,7 +268,6 @@ async function startQuiz()
                 </div>
             </div>
             
-            <div class="divider"></div>
                 <h2
                     id="question"
                     class="text-xl md:text-2xl font-bold">
