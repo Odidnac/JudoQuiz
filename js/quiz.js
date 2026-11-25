@@ -113,6 +113,29 @@ function logout()
 //END Funções de validação de user e inicio de jogo
 
 //Funções de inicio ou reinicio de Jogo
+function restartGame()
+{
+    clearInterval(
+        gameTimerInterval
+    );
+
+    clearInterval(
+        questionTimerInterval
+    );
+
+    currentQuestion = null;
+    answeredCorrectly = [];
+
+    ippons = 0;
+    wazaris = 0;
+    yukos = 0;
+    shidos = 0;
+
+    updateScoreBoard();
+    updateShidos();
+    showWelcomeScreen();
+}
+
 function confirmRestart()
 {
     showConfirmDialog(
