@@ -402,30 +402,24 @@ function hansokuMake()
         questionTimerInterval
     );
 
-    document
-        .getElementById(
-            "hansokuStats"
-        )
-        .innerHTML =
-        `
-        <div class="space-y-2">
-            <div>
-                🏆 Ippons: ${ippons}
-            </div>
-            <div>
-                🥈 Wazaris: ${wazaris}
-            </div>
-            <div>
-                🥉 Yukos: ${yukos}
-            </div>
-        </div>
-        `;
-    
     const modal =
         document.getElementById(
             "hansokuModal"
         );
+
     modal.showModal();
+
+    setTimeout(
+        function()
+        {
+            modal.close();
+
+            showFinalScreen(
+                "hansoku"
+            );
+        },
+        4000
+    );
 }
 
 function answerMultipleChoice(index)
@@ -670,7 +664,12 @@ function getVictoryTitle()
         return "🏆 Ouro Mundial";
     }
 
-    return "🥋 Grand Slam";
+    if(shidos === 2)
+    {
+        return "🥋 Grand Slam";
+    }
+
+    return "🥋 Sem bonificações";
 }
 
 function saveHighScore()
@@ -745,15 +744,20 @@ function getVictoryDescription()
 {
     if(shidos === 0)
     {
-        return "Parabéns pela vitória. A sua prestação valeu-lhe o Ouro Olímpico.";
+        return "Parabéns pela vitória. A tua prestação valeu-te o Ouro Olímpico.";
     }
 
     if(shidos === 1)
     {
-        return "Parabéns pela vitória. A sua prestação valeu-lhe o Ouro Mundial.";
+        return "Parabéns pela vitória. A tua prestação valeu-te o Ouro Mundial.";
     }
 
-    return "Parabéns pela vitória. A sua prestação valeu-lhe a vitória no Grand Slam.";
+    if(shidos === 2)
+    {
+        return "Parabéns pela vitória. A tua prestação valeu-te a vitória no Grand Slam.";
+    }
+
+    return "Foste eliminado do torneio. Ainda assim, a tua prestação valeu-te a vitória no Grand Slam.";
 }
 
 function showHighScores()
