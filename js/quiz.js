@@ -543,19 +543,18 @@ function updateScoreBoard()
 function answerText()
 {
     const answer =
-        document
-            .getElementById(
-                "txtAnswer"
-            )
-            .value
-            .trim()
-            .toLowerCase();
+        normalizeAnswer(
+            document
+                .getElementById(
+                    "txtAnswer"
+                )
+                .value
+        );
 
     const correct =
         currentQuestion.acceptedAnswers
             .some(
-                a =>
-                    a.toLowerCase() === answer
+                a => normalizeAnswer(a) === answer
             );
 
     if(correct)
@@ -962,19 +961,20 @@ function showFinalScreen(
 function validateMultipleText()
 {
     const answer =
-        document
-            .getElementById(
-                "txtAnswer"
-            )
-            .value
-            .trim()
-            .toLowerCase();
+        normalizeAnswer(
+            document
+                .getElementById(
+                    "txtAnswer"
+                )
+                .value
+        );
 
     const matchingIndex =
         remainingAnswers.findIndex(
             acceptedList =>
-                acceptedList.includes(
-                    answer
+                acceptedList.some(
+                    a =>
+                        normalizeAnswer(a) === answer
                 )
         );
 
@@ -1040,13 +1040,13 @@ function showLastCorrectAndFinish()
 function validateOrderedText()
 {
     const answer =
-        document
-            .getElementById(
-                "txtAnswer"
-            )
-            .value
-            .trim()
-            .toLowerCase();
+        normalizeAnswer(
+            document
+                .getElementById(
+                    "txtAnswer"
+                )
+                .value
+        );
 
     const acceptedAnswers =
         currentQuestion.acceptedAnswers[
@@ -1054,8 +1054,9 @@ function validateOrderedText()
         ];
 
     if(
-        !acceptedAnswers.includes(
-            answer
+        !acceptedAnswers.some(
+            a =>
+                normalizeAnswer(a) === answer
         )
     )
     {
@@ -1081,6 +1082,15 @@ function validateOrderedText()
 //End Funções de gestão de pontos e vidas de jogo
 
 //Funções de gestão de perguntas e respostas no ecrã
+function normalizeAnswer(text)
+{
+    return text
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
 async function loadQuestions()
 {
     questions = [];
