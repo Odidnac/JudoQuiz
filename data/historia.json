@@ -51,18 +51,18 @@
     "category": "Historia",
     "level": "all",
     "type": "ordered_text",
-    "question": "Ordene cronologicamente os acontecimentos seguintes.",
+    "question": "Escreva as três primeiras técnicas do GOKYO.",
     "image": null,
     "acceptedAnswers": 
     [
       [
-        "fundacao do kodokan"
+        "De-ashi-harai"
       ],
       [
-        "entrada nas escolas japonesas"
+        "Hiza-guruma"
       ],
       [
-        "entrada nos jogos olimpicos"
+        "Sasae-tsurikomi-ashi"
       ]
     ]
   }
