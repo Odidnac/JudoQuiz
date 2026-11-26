@@ -572,42 +572,54 @@ function showDecision(
     image
 )
 {
-    document
-        .getElementById(
-            "decisionTitle"
-        )
-        .innerHTML =
-        title;
-
-    document
-        .getElementById(
-            "decisionImage"
-        )
-        .src =
-        image;
-
     const modal =
         document.getElementById(
             "decisionModal"
         );
 
-    modal.showModal();
-    
+    const titleElement =
+        document.getElementById(
+            "decisionTitle"
+        );
+
+    const imageElement =
+        document.getElementById(
+            "decisionImage"
+        );
+
+    modal.close();
+
+    titleElement.innerHTML = "";
+    imageElement.src = "";
+
+    setTimeout(
+        function()
+        {
+            titleElement.innerHTML =
+                title;
+
+            imageElement.src =
+                image;
+
+            modal.showModal();
+        },
+        10
+    );
+
     setTimeout(
         function()
         {
             modal.close();
-    
+
             if(
                 answeredCorrectly.length ===
                 questions.length
             )
             {
                 victory();
-    
                 return;
             }
-    
+
             loadNextQuestion();
         },
         1500
