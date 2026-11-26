@@ -377,7 +377,7 @@ function answerCorrect()
     clearInterval(
         questionTimerInterval
     );
-    awardScore();
+    
     if(
         !answeredCorrectly.includes(
             currentQuestion.id
@@ -388,7 +388,8 @@ function answerCorrect()
             currentQuestion.id
         );
     }
-    loadNextQuestion();
+
+    awardScore();
 }
 
 function hansokuMake()
@@ -480,14 +481,29 @@ function awardScore()
             if(questionTimeRemaining >= 45)
             {
                 ippons++;
+
+                showDecision(
+                    "🏆 IPPON",
+                    "images/ippon.png"
+                );
             }
             else if(questionTimeRemaining >= 30)
             {
                 wazaris++;
+
+                showDecision(
+                    "🥈 WAZARI",
+                    "images/Wazari.png"
+                );
             }
             else
             {
                 yukos++;
+
+                showDecision(
+                    "🥉 YUKO",
+                    "images/Yuko.png"
+                );
             }
             break;
     }
@@ -969,9 +985,7 @@ function validateMultipleText()
         return;
     }
 
-    showCorrectAndContinue(
-        currentAnswerIndex
-    );
+    showCorrectAndContinue();
 }
 
 function showLastCorrectAndFinish()
@@ -1104,6 +1118,16 @@ function getRandomQuestion()
 
 function loadNextQuestion()
 {
+    if(
+        answeredCorrectly.length ===
+        questions.length
+    )
+    {
+        victory();
+    
+        return;
+    }
+    
     currentQuestion = getRandomQuestion();
 
     if(
