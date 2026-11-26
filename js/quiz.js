@@ -604,7 +604,17 @@ function showDecision(
         function()
         {
             modal.close();
-
+    
+            if(
+                answeredCorrectly.length ===
+                questions.length
+            )
+            {
+                victory();
+    
+                return;
+            }
+    
             loadNextQuestion();
         },
         1500
@@ -1117,17 +1127,7 @@ function getRandomQuestion()
 }
 
 function loadNextQuestion()
-{
-    if(
-        answeredCorrectly.length ===
-        questions.length
-    )
-    {
-        victory();
-    
-        return;
-    }
-    
+{   
     currentQuestion = getRandomQuestion();
 
     if(
