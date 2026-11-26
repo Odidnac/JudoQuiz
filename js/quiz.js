@@ -21,6 +21,9 @@ let gameTimerInterval = null;
 
 let gameRunning = false;
 
+let currentAnswerIndex = 0;
+let remainingAnswers = [];
+
 //Funções de validação de user
 window.onload = async function ()
 {
@@ -928,97 +931,87 @@ function showFinalScreen(
 
 function validateMultipleText()
 {
-    const correctAnswers =
-        currentQuestion.acceptedAnswers;
+    const answer =
+        document
+            .getElementById(
+                "txtAnswer"
+            )
+            .value
+            .trim()
+            .toLowerCase();
 
-    const givenAnswers = [];
+    const matchingIndex =
+        remainingAnswers.findIndex(
+            acceptedList =>
+                acceptedList.includes(
+                    answer
+                )
+        );
 
-    for(
-        let index = 0;
-        index < correctAnswers.length;
-        index++
+    if(
+        matchingIndex === -1
     )
     {
-        givenAnswers.push(
-            document
-                .getElementById(
-                    `field_${index}`
-                )
-                .value
-                .trim()
-                .toLowerCase()
-        );
+        answerWrong();
+        return;
     }
 
-    let score = 0;
-
-    correctAnswers.forEach(
-        acceptedList =>
-        {
-            const found =
-                givenAnswers.some(
-                    answer =>
-                        acceptedList.includes(
-                            answer
-                        )
-                );
-
-            if(found)
-            {
-                score++;
-            }
-        }
+    remainingAnswers.splice(
+        matchingIndex,
+        1
     );
 
-    if(score === correctAnswers.length)
+    currentAnswerIndex++;
+
+    if(
+        remainingAnswers.length === 0
+    )
     {
         answerCorrect();
+        return;
     }
-    else
-    {
-        answerWrong();
-    }
+
+    showCorrectAndContinue();
 }
 
 function validateOrderedText()
 {
+    const answer =
+        document
+            .getElementById(
+                "txtAnswer"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
     const acceptedAnswers =
-        currentQuestion.acceptedAnswers;
+        currentQuestion.acceptedAnswers[
+            currentAnswerIndex
+        ];
 
-    let correct = true;
-
-    for(
-        let index = 0;
-        index < acceptedAnswers.length;
-        index++
+    if(
+        !acceptedAnswers.includes(
+            answer
+        )
     )
     {
-        const answer =
-            document
-                .getElementById(
-                    `field_${index}`
-                )
-                .value
-                .trim()
-                .toLowerCase();
-
-        const accepted = acceptedAnswers[index];
-
-        if(!accepted.includes(answer))
-        {
-            correct = false;
-            break;
-        }
+        answerWrong();
+        return;
     }
 
-    if(correct)
+    currentAnswerIndex++;
+
+    if(
+        currentAnswerIndex >=
+        currentQuestion.acceptedAnswers.length
+    )
     {
         answerCorrect();
+        return;
     }
-    else
-    {
-        answerWrong();
-    }
+
+    showCorrectAndContinue();
 }
 //End Funções de gestão de pontos e vidas de jogo
 
@@ -1076,6 +1069,25 @@ function loadNextQuestion()
 {
     currentQuestion = getRandomQuestion();
 
+    if(
+        currentQuestion &&
+        (
+            currentQuestion.type === "multiple_text"
+            ||
+            currentQuestion.type === "ordered_text"
+        )
+    )
+    {
+        currentAnswerIndex = 0;
+    
+        remainingAnswers =
+            JSON.parse(
+                JSON.stringify(
+                    currentQuestion.acceptedAnswers
+                )
+            );
+    }
+
     if(!currentQuestion)
     {
         victory();
@@ -1087,6 +1099,58 @@ function loadNextQuestion()
     
     renderQuestion();
     startQuestionTimer();
+}
+
+function showCorrectAndContinue()
+{
+    document
+        .getElementById(
+            "answerProgress"
+        )
+        .innerHTML =
+        `
+        ✅
+        ${
+            currentAnswerIndex + 1
+        }
+        /
+        ${
+            currentQuestion.acceptedAnswers.length
+        }
+        `;
+
+    setTimeout(
+        function()
+        {
+            document
+                .getElementById(
+                    "txtAnswer"
+                )
+                .value = "";
+
+            document
+                .getElementById(
+                    "answerProgress"
+                )
+                .innerHTML =
+                `
+                ${
+                    currentAnswerIndex + 1
+                }
+                /
+                ${
+                    currentQuestion.acceptedAnswers.length
+                }
+                `;
+
+            document
+                .getElementById(
+                    "txtAnswer"
+                )
+                .focus();
+        },
+        1000
+    );
 }
 
 function renderQuestion()
@@ -1157,38 +1221,52 @@ function renderQuestion()
 
 function renderMultiFieldQuestion()
 {
-    let html = "";
-
-    for(
-        let index = 0;
-        index < currentQuestion.acceptedAnswers.length;
-        index++
-    )
-    {
-        html += `
-            <input
-                id="field_${index}"
-                class="input input-bordered w-full mb-2"
-                placeholder="Resposta ${index + 1}">
-        `;
-    }
-
-    html += `
-        <button
-            class="btn btn-primary w-full mt-3"
-            onclick="answerMultiField()">
-
-            Responder
-
-        </button>
-    `;
-
     document
         .getElementById(
             "questionArea"
         )
         .innerHTML =
-        html;
+        `
+        <div
+            id="answerProgress"
+            class="text-center text-lg font-bold mb-3">
+
+            ${
+                currentAnswerIndex + 1
+            }
+            /
+            ${
+                currentQuestion.acceptedAnswers.length
+            }
+
+        </div>
+
+        <input
+            id="txtAnswer"
+            class="input input-bordered w-full"
+            autocomplete="off">
+
+        `;
+
+    const input =
+        document.getElementById(
+            "txtAnswer"
+        );
+
+    input.focus();
+
+    input.addEventListener(
+        "keydown",
+        function(event)
+        {
+            if(
+                event.key === "Enter"
+            )
+            {
+                answerMultiField();
+            }
+        }
+    );
 }
 
 function answerMultiField()
