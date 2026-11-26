@@ -961,8 +961,6 @@ function validateMultipleText()
         1
     );
 
-    currentAnswerIndex++;
-
     if(
         remainingAnswers.length === 0
     )
@@ -971,7 +969,9 @@ function validateMultipleText()
         return;
     }
 
-    showCorrectAndContinue();
+    showCorrectAndContinue(
+        currentAnswerIndex
+    );
 }
 
 function validateOrderedText()
@@ -999,9 +999,7 @@ function validateOrderedText()
         answerWrong();
         return;
     }
-
-    currentAnswerIndex++;
-
+    
     if(
         currentAnswerIndex >=
         currentQuestion.acceptedAnswers.length
@@ -1011,7 +1009,9 @@ function validateOrderedText()
         return;
     }
 
-    showCorrectAndContinue();
+    showCorrectAndContinue(
+        currentAnswerIndex
+    );
 }
 //End Funções de gestão de pontos e vidas de jogo
 
@@ -1122,6 +1122,8 @@ function showCorrectAndContinue()
     setTimeout(
         function()
         {
+            currentAnswerIndex++;
+
             document
                 .getElementById(
                     "txtAnswer"
