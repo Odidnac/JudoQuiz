@@ -1031,6 +1031,12 @@ function showLastCorrectAndFinish()
     setTimeout(
         function()
         {
+            document
+                .getElementById(
+                    "questionArea"
+                )
+                .innerHTML = "";
+
             answerCorrect();
         },
         1000
