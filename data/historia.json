@@ -45,25 +45,5 @@
         "yokoyama sakujiro"
       ]
     ]
-  },
-  {
-    "id": "HIS.4",
-    "category": "Historia",
-    "level": "all",
-    "type": "ordered_text",
-    "question": "Escreva as três primeiras técnicas do GOKYO.",
-    "image": null,
-    "acceptedAnswers": 
-    [
-      [
-        "De-ashi-harai"
-      ],
-      [
-        "Hiza-guruma"
-      ],
-      [
-        "Sasae-tsurikomi-ashi"
-      ]
-    ]
   }
 ]
