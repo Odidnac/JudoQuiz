@@ -994,6 +994,12 @@ function showLastCorrectAndFinish()
         )
         .disabled = true;
 
+    document
+        .getElementById(
+            "btnSubmitAnswer"
+        )
+        .disabled = true;
+
     setTimeout(
         function()
         {
@@ -1030,13 +1036,15 @@ function validateOrderedText()
     }
     
     if(
-        currentAnswerIndex >=
+        currentAnswerIndex + 1 >=
         currentQuestion.acceptedAnswers.length
     )
     {
-        answerCorrect();
+        showLastCorrectAndFinish();
+    
         return;
     }
+
 
     showCorrectAndContinue(
         currentAnswerIndex
