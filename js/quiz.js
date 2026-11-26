@@ -1229,7 +1229,11 @@ function renderMultiFieldQuestion()
         `
         <div
             id="answerProgress"
-            class="text-center text-lg font-bold mb-3">
+            class="
+                badge
+                badge-primary
+                badge-lg
+                mb-3">
 
             ${
                 currentAnswerIndex + 1
@@ -1243,9 +1247,24 @@ function renderMultiFieldQuestion()
 
         <input
             id="txtAnswer"
-            class="input input-bordered w-full"
+            class="
+                input
+                input-bordered
+                input-lg
+                w-full"
             autocomplete="off">
 
+        <button
+            class="
+                btn
+                btn-primary
+                w-full
+                mt-3"
+            onclick="answerMultiField()">
+
+            Responder
+
+        </button>
         `;
 
     const input =
