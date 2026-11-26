@@ -583,7 +583,7 @@ function showDecision(
         );
 
     modal.showModal();
-
+    
     setTimeout(
         function()
         {
@@ -965,12 +965,41 @@ function validateMultipleText()
         remainingAnswers.length === 0
     )
     {
-        answerCorrect();
+        showLastCorrectAndFinish();
         return;
     }
 
     showCorrectAndContinue(
         currentAnswerIndex
+    );
+}
+
+function showLastCorrectAndFinish()
+{
+    document
+        .getElementById(
+            "answerProgress"
+        )
+        .innerHTML =
+        `
+        ✅
+        ${currentQuestion.acceptedAnswers.length}
+        /
+        ${currentQuestion.acceptedAnswers.length}
+        `;
+
+    document
+        .getElementById(
+            "txtAnswer"
+        )
+        .disabled = true;
+
+    setTimeout(
+        function()
+        {
+            answerCorrect();
+        },
+        1000
     );
 }
 
@@ -1105,6 +1134,18 @@ function showCorrectAndContinue()
 {
     document
         .getElementById(
+            "txtAnswer"
+        )
+        .disabled = true;
+    
+    document
+        .getElementById(
+            "btnSubmitAnswer"
+        )
+        .disabled = true;
+    
+    document
+        .getElementById(
             "answerProgress"
         )
         .innerHTML =
@@ -1124,32 +1165,7 @@ function showCorrectAndContinue()
         {
             currentAnswerIndex++;
 
-            document
-                .getElementById(
-                    "txtAnswer"
-                )
-                .value = "";
-
-            document
-                .getElementById(
-                    "answerProgress"
-                )
-                .innerHTML =
-                `
-                ${
-                    currentAnswerIndex + 1
-                }
-                /
-                ${
-                    currentQuestion.acceptedAnswers.length
-                }
-                `;
-
-            document
-                .getElementById(
-                    "txtAnswer"
-                )
-                .focus();
+            renderMultiFieldQuestion();
         },
         1000
     );
@@ -1256,7 +1272,8 @@ function renderMultiFieldQuestion()
                 w-full"
             autocomplete="off">
 
-        <button
+        <button 
+            id="btnSubmitAnswer"
             class="
                 btn
                 btn-primary
