@@ -475,6 +475,7 @@ function awardScore()
 
         case "multiple_text":
         case "ordered_text":
+        case "ordered_choice":
             if(questionTimeRemaining >= 45)
             {
                 ippons++;
@@ -1300,13 +1301,13 @@ function renderQuestion()
             renderText();
             break;
 
-        case "ordered_choice":
-            renderOrderedChoice();
-            break;
-
         case "multiple_text":
         case "ordered_text":
             renderMultiFieldQuestion();
+            break;
+
+        case "ordered_choice":
+            renderOrderedChoice();
             break;
     }
 }
