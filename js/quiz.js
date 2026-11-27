@@ -1,15 +1,3 @@
-const questionFiles =
-[
-    "data/atletas.json",
-    "data/dojo.json",
-    "data/filosofia.json",
-    "data/historia.json",
-    "data/historiaPRT.json",
-    "data/katas.json",
-    "data/regras.json",
-    "data/tecnicas.json",
-];
-
 const supabaseUrl =
     "https://bhexdosxftbtnjaojhao.supabase.co";
 
@@ -1187,29 +1175,6 @@ async function loadQuestionsFromSupabase()
                     q.dojo_id
             })
         );
-}
-
-async function loadQuestions()
-{
-    questions = [];
-
-    for(const file of questionFiles)
-    {
-        const response =
-            await fetch(file);
-
-        const fileQuestions =
-            await response.json();
-
-        questions.push(
-            ...fileQuestions
-        );
-    }
-
-    console.log(
-        "Total de perguntas:",
-        questions.length
-    );
 }
 
 function getRandomQuestion()
