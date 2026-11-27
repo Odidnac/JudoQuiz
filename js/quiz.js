@@ -24,6 +24,9 @@ let gameRunning = false;
 let currentAnswerIndex = 0;
 let remainingAnswers = [];
 
+let orderedChoiceSelections = [];
+let nextOrderNumber = 1;
+
 //Funções de validação de user
 window.onload = async function ()
 {
@@ -1162,6 +1165,9 @@ function loadNextQuestion()
 {   
     currentQuestion = getRandomQuestion();
 
+    orderedChoiceSelections = [];
+    nextOrderNumber = 1;
+
     if(
         currentQuestion &&
         (
@@ -1294,11 +1300,215 @@ function renderQuestion()
             renderText();
             break;
 
+        case "ordered_choice":
+            renderOrderedChoice();
+            break;
+
         case "multiple_text":
         case "ordered_text":
             renderMultiFieldQuestion();
             break;
     }
+}
+
+function renderOrderedChoice()
+{
+    let html = "";
+
+    currentQuestion.options.forEach(
+        (
+            option,
+            index
+        ) =>
+        {
+            const selectedOrder =
+                orderedChoiceSelections[
+                    index
+                ];
+
+            html +=
+            `
+            <button
+                class="
+                    btn
+                    btn-outline
+                    w-full
+                    mb-2
+                    min-h-14
+                    whitespace-normal
+                    justify-start"
+                onclick="
+                    selectOrderedChoice(
+                        ${index}
+                    )">
+
+                ${
+                    selectedOrder
+                    ?
+                    `
+                    <span
+                        class="
+                        badge
+                        badge-primary
+                        badge-lg
+                        mr-2">
+
+                        ${selectedOrder}
+
+                    </span>
+                    `
+                    :
+                    ""
+                }
+
+                ${option}
+
+            </button>
+            `;
+        }
+    );
+
+    document
+        .getElementById(
+            "questionArea"
+        )
+        .innerHTML =
+        html;
+}
+
+function selectOrderedChoice(
+    index
+)
+{
+    if(
+        orderedChoiceSelections[
+            index
+        ]
+    )
+    {
+        removeOrderedChoice(
+            index
+        );
+
+        return;
+    }
+
+    orderedChoiceSelections[
+        index
+    ] =
+    nextOrderNumber;
+
+    nextOrderNumber++;
+
+    renderOrderedChoice();
+
+    checkOrderedChoiceCompletion();
+}
+
+function checkOrderedChoiceCompletion()
+{
+    if(
+        nextOrderNumber <=
+        currentQuestion.options.length
+    )
+    {
+        return;
+    }
+
+    validateOrderedChoice();
+}
+
+function validateOrderedChoice()
+{
+    const chosenOrder =
+        [];
+
+    for(
+        let order = 1;
+        order <=
+        currentQuestion.options.length;
+        order++
+    )
+    {
+        chosenOrder.push(
+            orderedChoiceSelections
+                .findIndex(
+                    x =>
+                        x === order
+                )
+        );
+    }
+
+    const correct =
+        JSON.stringify(
+            chosenOrder
+        ) ===
+        JSON.stringify(
+            currentQuestion
+                .correctOrder
+        );
+
+    if(correct)
+    {
+        answerCorrect();
+    }
+    else
+    {
+        answerWrong();
+    }
+}
+
+function removeOrderedChoice(
+    index
+)
+{
+    orderedChoiceSelections[
+        index
+    ] = null;
+
+    normalizeOrderedChoices();
+
+    renderOrderedChoice();
+}
+
+function normalizeOrderedChoices()
+{
+    const values =
+        orderedChoiceSelections
+            .filter(
+                x => x
+            )
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    a - b
+            );
+
+    let counter = 1;
+
+    values.forEach(
+        value =>
+        {
+            const idx =
+                orderedChoiceSelections
+                    .findIndex(
+                        x =>
+                            x === value
+                    );
+
+            orderedChoiceSelections[
+                idx
+            ] =
+            counter;
+
+            counter++;
+        }
+    );
+
+    nextOrderNumber =
+        counter;
 }
 
 function renderMultiFieldQuestion()
