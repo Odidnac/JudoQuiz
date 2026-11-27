@@ -16,7 +16,7 @@ const supabaseUrl =
 const supabaseKey =
     "sb_publishable_B2nJLKeDmudQQhDBX5ntyg_CbPhZ6no";
 
-const supabase =
+const supabaseClient =
     window.supabase.createClient(
         supabaseUrl,
         supabaseKey
@@ -1136,7 +1136,7 @@ async function loadQuestionsFromSupabase()
         data,
         error
     } =
-    await supabase
+    await supabaseClient
         .from("questions")
         .select("*")
         .eq("active", true);
