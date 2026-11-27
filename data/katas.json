@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": "KAT.1",
+    "category": "Katas",
+    "level": "1kyu",
+    "type": "ordered_choice",
+    "question": "Ordene as primeiras quatro técnicas da Nage-no-Kata.",
+    "image": null,
+    "options":
+    [
+        "Kata-guruma",
+        "Uki-otoshi",
+        "Seoi-nage",
+        "Sasae-tsurikomi-ashi"
+    ],
+    "correctOrder":
+    [
+        1,
+        3,
+        0,
+        2
+    ]
+  }
+]
