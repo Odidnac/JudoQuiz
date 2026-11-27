@@ -10,6 +10,18 @@ const questionFiles =
     "data/tecnicas.json",
 ];
 
+const supabaseUrl =
+    "https://bhexdosxftbtnjaojhao.supabase.co";
+
+const supabaseKey =
+    "sb_publishable_B2nJLKeDmudQQhDBX5ntyg_CbPhZ6no";
+
+const supabase =
+    window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+    );
+
 let shidos = 0;
 let ippons = 0;
 let wazaris = 0;
@@ -302,7 +314,12 @@ async function startQuiz()
         </div>
         `;
 
-    await loadQuestions();
+    await loadQuestionsFromSupabase();
+
+    console.log(
+        questions
+    );
+    
     updateScoreBoard();
     updateShidos();
     startGameTimer();
@@ -1111,6 +1128,65 @@ function normalizeAnswer(text)
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
+}
+
+async function loadQuestionsFromSupabase()
+{
+    const {
+        data,
+        error
+    } =
+    await supabase
+        .from("questions")
+        .select("*")
+        .eq("active", true);
+
+    if(error)
+    {
+        console.error(error);
+
+        return;
+    }
+
+    console.log(data);
+
+    questions =
+        data.map(
+            q =>
+            ({
+                id: q.id,
+
+                category:
+                    q.category,
+
+                level:
+                    q.level,
+
+                type:
+                    q.question_type,
+
+                question:
+                    q.question,
+
+                image:
+                    q.image_url,
+
+                options:
+                    q.options,
+
+                acceptedAnswers:
+                    q.accepted_answers,
+
+                correct:
+                    q.correct,
+
+                correctOrder:
+                    q.correct_order,
+
+                dojoId:
+                    q.dojo_id
+            })
+        );
 }
 
 async function loadQuestions()
